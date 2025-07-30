@@ -2,9 +2,9 @@
 
 ## Dissecting Persuasion, Strategy, and Deception in 1-on-1 LLM Bargaining
 
-PACT (**P**airwise **A**uction **C**onversation **T**estbed) sets up a 20‑round bargaining game where a buyer and a seller, each with their own hidden “private value,” talk once, then quote a price each round. A trade triggers whenever the bid reaches the ask; every message and outcome carries forward, letting the agents anchor, concede, bluff, or hold firm as the negotiation unfolds.
+PACT (**P**airwise **A**uction **C**onversation **T**estbed) is a benchmark for conversational bargaining by language models.  In each 20‑round match one LLM plays buyer, one plays seller, and both hold a hidden private value. Every round they swap a short public message, then post a bid or ask; a deal clears whenever the bid meets the ask. Because chat logs and prices carry forward, the agents can learn from earlier rounds—anchoring, bluffing, or adjusting after a miss—and their cumulative profit becomes the score.
 
-Watching those message‑price trajectories shows how language models actually haggle: how quickly they probe for the other side’s threshold, how they adjust after a missed deal, and whether polite chat translates into better terms. That mirrors real‑world scenarios—from marketplace bots and procurement tools to on‑device agents—that rely on iterative offers rather than one‑shot bids, making PACT a practical test of conversational deal‑making skill.
+Tracking those message‑price threads lets us study haggling skill in language models: how they probe for the other side’s threshold, when they concede, and how quickly they update strategy from the growing history. That insight matters wherever autonomous agents must negotiate repeatedly—online marketplaces, supply‑chain bots, or on‑device resource managers—making PACT a practical yard‑stick for real‑world conversational deal‑making.
 
 ---
 
