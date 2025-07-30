@@ -26,14 +26,6 @@ The heat‑map compares every model against every other, cell‑by‑cell. Colou
 
 ---
 
-### **Average Trade Frequency**
-
-![Trade Frequency](images/trade_frequency.png)
-
-Here, each horizontal bar reports how often a model converts a negotiation into at least one executed trade. It captures an agent’s deal‑making appetite—patient snipers sit lower, relentless closers push higher.
-
----
-
 ### **Trade Frequency by Round**
 
 ![Trade frequency by round](images/trade_frequency_by_round.png)
@@ -63,14 +55,6 @@ This line plot tracks, round‑by‑round, how far each model’s offers sit abo
 ![Mean Trade Offset](images/trade_offset_mean_by_round.png)
 
 Parallel to the bid plot, this figure follows the realized offset on completed trades for each round. Comparing it with the bid trajectory reveals how well initial positions convert into actual deal prices.
-
----
-
-### **Opponent Mean Bid Offset by Round**
-
-![Opponent bid offset](images/opponent_bid_mean_by_round.png)
-
-Shows how far the opponent quotes away from their private value when facing each model. 
 
 ---
 
