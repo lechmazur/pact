@@ -2,7 +2,7 @@
 
 ## Dissecting Persuasion, Strategy, and Deception in 1-on-1 LLM Bargaining
 
-PACT (**P**airwise **A**uction **C**onversation **T**estbed) is a benchmark for conversational bargaining by language models.  In each 20‑round match one LLM plays buyer, one plays seller, and both hold a hidden private value. Every round they swap a short public message, then post a bid or ask; a deal clears whenever the bid meets the ask. Because chat logs and prices carry forward, the agents can learn from earlier rounds—anchoring, bluffing, or adjusting after a miss—and their cumulative profit becomes the score.
+PACT (**P**airwise **A**uction **C**onversation **T**estbed) is a benchmark for conversational bargaining by language models.  In each 20‑round match one LLM plays buyer, one plays seller, and both hold a hidden private value. Every round they swap a short public message, then post a bid or ask; a deal clears whenever the bid meets the ask. Because chat logs and prices carry forward, the agents can learn from earlier rounds—anchoring, bluffing, or adjusting after a miss—and their cumulative profit becomes the score.
 
 Tracking those message‑price threads lets us study haggling skill in language models: how they probe for the other side’s threshold, when they concede, and how quickly they update strategy from the growing history. That insight matters wherever autonomous agents must negotiate repeatedly—online marketplaces, supply‑chain bots, or on‑device resource managers—making PACT a practical yard‑stick for real‑world conversational deal‑making.
 
@@ -10,9 +10,9 @@ Tracking those message‑price threads lets us study haggling skill in language 
 
 ## Visualizing the Outcome
 
-### **PACT Glicko‑2 Leaderboard**
+### **PACT Glicko‑2 Leaderboard**
 
-![PACT Glicko‑2 Leaderboard](images/pact_leaderboard_llm.png)
+![PACT Glicko‑2 Leaderboard](images/pact_leaderboard_llm.png)
 
 This bar chart translates thousands of 1‑on‑1 games into Glicko‑2 ratings. Each bar shows a model’s estimated bargaining skill (central value) and its uncertainty band, while the label adds context with the number of games and average profit per round. Use it as the high‑level scoreboard for overall negotiating strength.
 
@@ -26,9 +26,9 @@ The heat‑map compares every model against every other, cell‑by‑cell. Colou
 
 ---
 
-### **Average Trade Frequency**
+### **Average Trade Frequency**
 
-![Trade Frequency](images/trade_frequency.png)
+![Trade Frequency](images/trade_frequency.png)
 
 Here, each horizontal bar reports how often a model converts a negotiation into at least one executed trade. It captures an agent’s deal‑making appetite—patient snipers sit lower, relentless closers push higher.
 
@@ -42,17 +42,17 @@ Every dot represents a single game’s average profit per round. Dense, narrow v
 
 ---
 
-### **Mean Bid Offset by Round**
+### **Mean Bid Offset by Round**
 
-![Mean Bid Offset](images/llm_bid_mean_by_round.png)
+![Mean Bid Offset](images/llm_bid_mean_by_round.png)
 
 This line plot tracks, round‑by‑round, how far each model’s offers sit above its private value (with buyer signs flipped). It visualizes opening anchors, concession speeds, and late‑game adjustments.
 
 ---
 
-### **Mean Trade Offset by Round**
+### **Mean Trade Offset by Round**
 
-![Mean Trade Offset](images/trade_offset_mean_by_round.png)
+![Mean Trade Offset](images/trade_offset_mean_by_round.png)
 
 Parallel to the bid plot, this figure follows the realized offset on completed trades for each round. Comparing it with the bid trajectory reveals how well initial positions convert into actual deal prices.
 
@@ -66,7 +66,7 @@ Aggregating across all roles and rounds, this bar chart gives a single‑number 
 
 ---
 
-### **Game‑Level Bid Offset Scatter**
+### **Game‑Level Bid Offset Scatter**
 
 ![Mean Offset Distribution](images/mean_offset_strip.png)
 
@@ -76,7 +76,7 @@ Each point shows the mean bid offset for one full game, exposing run‑to‑run 
 
 ### **All‑Bid Offset Distribution**
 
-![Offset Distribution (All Bids)](images/offset_strip_all_models.png)
+![Offset Distribution (All Bids)](images/offset_strip_all_models.png)
 
 Plotting every individual bid, this dense strip chart uncovers the full tactical range—outliers, clustering, and the tails of overly generous or excessively greedy offers.
 
@@ -90,17 +90,17 @@ This chart mirrors the previous one but for executed trades only. It highlights 
 
 ---
 
-### Trade frequency by round
+### Trade frequency by round
 
-![Trade frequency by round](images/trade_frequency_by_round.png)
+![Trade frequency by round](images/trade_frequency_by_round.png)
 
 Line chart showing the share of seats that complete a trade in each negotiation round. Each line corresponds to one model. 
 
 ---
 
-### Opponent bid offset by round
+### Opponent bid offset by round
 
-![Opponent bid offset by round](images/opponent_bid_mean_by_round.png)
+![Opponent bid offset by round](images/opponent_bid_mean_by_round.png)
 
 For each model, this plot tracks how far the other side’s bids sit from their valuations. 
 
@@ -112,7 +112,7 @@ For each model, this plot tracks how far the other side’s bids sit from their 
 * **Match structure:** one buyer versus one seller
 * **Rounds:** 20 per game
 * **Auction type:** double auction in an open chat channel
-* **Chat protocol:** sequential turns, one short public message (truncated to 100 words) per agent each round
+* **Chat protocol:** sequential turns, one short public message (truncated to 100 words) per agent each round
 * **Private‑value draws:** weighted mix of uniform, correlated, semi‑bimodal, and heavy‑tailed distributions
 * **Score:** average profit per round
 * **Rating system:** Glicko‑2 with margin‑of‑victory adjustments
@@ -277,7 +277,7 @@ If you’re happy sharing volume over margin, tell it your value, propose a “f
 ---
 ### Benchmark Mechanics
 
-Two agents—a buyer and a seller—chat once per round for 20 rounds, then both agents submit one price (buyer → bid, seller → ask). A trade clears at the midpoint whenever **bid ≥ ask**; otherwise nothing happens. The **per‑round profit** (buyer: value – price, seller: price – value) is the single ground‑truth score. Summed over 20 rounds, that profit gap becomes the match margin.
+Two agents—a buyer and a seller—chat once per round for 20 rounds, then both agents submit one price (buyer → bid, seller → ask). A trade clears at the midpoint whenever **bid ≥ ask**; otherwise nothing happens. The **per‑round profit** (buyer: value – price, seller: price – value) is the single ground‑truth score. Summed over 20 rounds, that profit gap becomes the match margin.
 
 Those margins feed a **Glicko‑2** engine that updates each model’s rating and uncertainty after every game, rewarding lopsided victories more than razor‑thin edges. 3,900+ pairings drive ratings to equilibrium, producing the leaderboard cited in the figures.
 
