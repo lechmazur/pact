@@ -24,13 +24,6 @@ This bar chart translates thousands of 1‑on‑1 games into Glicko‑2 ratings.
 
 The heat‑map compares every model against every other, cell‑by‑cell. Colours indicate the average per‑round profit advantage in their direct match‑ups, making asymmetric rivalries and broad dominance patterns immediately visible.
 
----
-
-### **Average Trade Frequency**
-
-![Trade Frequency](images/trade_frequency.png)
-
-Here, each horizontal bar reports how often a model converts a negotiation into at least one executed trade. It captures an agent’s deal‑making appetite—patient snipers sit lower, relentless closers push higher.
 
 ---
 
@@ -66,6 +59,14 @@ Aggregating across all roles and rounds, this bar chart gives a single‑number 
 
 ---
 
+### Opponent bid offset by round
+
+![Opponent bid offset by round](images/opponent_bid_mean_by_round.png)
+
+For each model, this plot tracks how far the other side’s bids sit from their valuations. 
+
+---
+
 ### **Game‑Level Bid Offset Scatter**
 
 ![Mean Offset Distribution](images/mean_offset_strip.png)
@@ -90,19 +91,20 @@ This chart mirrors the previous one but for executed trades only. It highlights 
 
 ---
 
+### **Average Trade Frequency**
+
+![Trade Frequency](images/trade_frequency.png)
+
+Here, each horizontal bar reports how often a model converts a negotiation into at least one executed trade. It captures an agent’s deal‑making appetite—patient snipers sit lower, relentless closers push higher.
+
+---
+
 ### Trade frequency by round
 
 ![Trade frequency by round](images/trade_frequency_by_round.png)
 
 Line chart showing the share of seats that complete a trade in each negotiation round. Each line corresponds to one model. 
 
----
-
-### Opponent bid offset by round
-
-![Opponent bid offset by round](images/opponent_bid_mean_by_round.png)
-
-For each model, this plot tracks how far the other side’s bids sit from their valuations. 
 
 
 
