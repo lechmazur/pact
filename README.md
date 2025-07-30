@@ -2,34 +2,34 @@
 
 ## Dissecting Persuasion, Strategy, and Deception in 1-on-1 LLM Bargaining
 
-PACT (**P**airwise **A**uction **C**onversation **T**estbed) is a benchmark for conversational bargaining by language models.  In each 20‑round match one LLM plays buyer, one plays seller, and both hold a hidden private value. Every round they swap a short public message, then post a bid or ask; a deal clears whenever the bid meets the ask. Because chat logs and prices carry forward, the agents can learn from earlier rounds—anchoring, bluffing, or adjusting after a miss—and their cumulative profit becomes the score.
+PACT (**P**airwise **A**uction **C**onversation **T**estbed) is a benchmark for conversational bargaining by language models.  In each 20-round match one LLM plays buyer, one plays seller, and both hold a hidden private value. Every round they swap a short public message, then post a bid or ask; a deal clears whenever the bid meets the ask. Because chat logs and prices carry forward, the agents can learn from earlier rounds—anchoring, bluffing, or adjusting after a miss—and their cumulative profit becomes the score.
 
-Tracking those message‑price threads lets us study haggling skill in language models: how they probe for the other side’s threshold, when they concede, and how quickly they update strategy from the growing history. That insight matters wherever autonomous agents must negotiate repeatedly—online marketplaces, supply‑chain bots, or on‑device resource managers—making PACT a practical yard‑stick for real‑world conversational deal‑making.
+Tracking those message-price threads lets us study haggling skill in language models: how they probe for the other side’s threshold, when they concede, and how quickly they update strategy from the growing history. That insight matters wherever autonomous agents must negotiate repeatedly—online marketplaces, supply-chain bots, or on-device resource managers—making PACT a practical yard-stick for real-world conversational deal-making.
 
 ---
 
 ## Visualizing the Outcome
 
-### **PACT Glicko‑2 Leaderboard**
+### **PACT Glicko-2 Leaderboard**
 
-![PACT Glicko‑2 Leaderboard](images/pact_leaderboard_llm.png)
+![PACT Glicko-2 Leaderboard](images/pact_leaderboard_llm.png)
 
-This bar chart translates thousands of 1‑on‑1 games into Glicko‑2 ratings. Each bar shows a model’s estimated bargaining skill (central value) and its uncertainty band, while the label adds context with the number of games and average profit per round. Use it as the high‑level scoreboard for overall negotiating strength.
-
----
-
-### **Head‑to‑Head Profit Matrix**
-
-![Head‑to‑Head Profit Matrix](images/h2h_overall_matrix.png)
-
-The heat‑map compares every model against every other, cell‑by‑cell. Colours indicate the average per‑round profit advantage in their direct match‑ups, making asymmetric rivalries and broad dominance patterns immediately visible.
-
+This bar chart translates thousands of 1-on-1 games into Glicko-2 ratings. Each bar shows a model’s estimated bargaining skill (central value) and its uncertainty band, while the label adds context with the number of games and average profit per round. Use it as the high-level scoreboard for overall negotiating strength.
 
 ---
 
-### **Per‑Round Profit Distribution**
+### **Head-to-Head Profit Matrix**
 
-![Per‑Round Profit Distribution](images/profit_strip.png)
+![Head-to-Head Profit Matrix](images/h2h_overall_matrix.png)
+
+The heat-map compares every model against every other, cell-by-cell. Colours indicate the average per-round profit advantage in their direct match-ups, making asymmetric rivalries and broad dominance patterns immediately visible.
+
+
+---
+
+### **Per-Round Profit Distribution**
+
+![Per-Round Profit Distribution](images/profit_strip.png)
 
 Every dot represents a single game’s average profit per round. Dense, narrow vertical clouds signal consistent economic performance, while wide or sparse clouds flag volatility in outcomes.
 
@@ -39,7 +39,7 @@ Every dot represents a single game’s average profit per round. Dense, narrow v
 
 ![Mean Bid Offset](images/llm_bid_mean_by_round.png)
 
-This line plot tracks, round‑by‑round, how far each model’s offers sit above its private value (with buyer signs flipped). It visualizes opening anchors, concession speeds, and late‑game adjustments.
+This line plot tracks, round-by-round, how far each model’s offers sit above its private value (with buyer signs flipped). It visualizes opening anchors, concession speeds, and late-game adjustments.
 
 ---
 
@@ -55,7 +55,7 @@ Parallel to the bid plot, this figure follows the realized offset on completed t
 
 ![Average Offset](images/llm_avg_offset.png)
 
-Aggregating across all roles and rounds, this bar chart gives a single‑number snapshot of each model’s typical ask‑above‑value (or bid‑below‑value). Higher values indicate tougher initial bargaining stances.
+Aggregating across all roles and rounds, this bar chart gives a single-number snapshot of each model’s typical ask-above-value (or bid-below-value). Higher values indicate tougher initial bargaining stances.
 
 ---
 
@@ -67,15 +67,15 @@ For each model, this plot tracks how far the other side’s bids sit from their 
 
 ---
 
-### **Game‑Level Bid Offset Scatter**
+### **Game-Level Bid Offset Scatter**
 
 ![Mean Offset Distribution](images/mean_offset_strip.png)
 
-Each point shows the mean bid offset for one full game, exposing run‑to‑run variation in strategic aggression without being diluted by round‑level noise.
+Each point shows the mean bid offset for one full game, exposing run-to-run variation in strategic aggression without being diluted by round-level noise.
 
 ---
 
-### **All‑Bid Offset Distribution**
+### **All-Bid Offset Distribution**
 
 ![Offset Distribution (All Bids)](images/offset_strip_all_models.png)
 
@@ -83,7 +83,7 @@ Plotting every individual bid, this dense strip chart uncovers the full tactical
 
 ---
 
-### **All‑Trade Offset Distribution**
+### **All-Trade Offset Distribution**
 
 ![Trade Offset Distribution](images/trade_offset_strip_all_models.png)
 
@@ -95,7 +95,7 @@ This chart mirrors the previous one but for executed trades only. It highlights 
 
 ![Trade Frequency](images/trade_frequency.png)
 
-Here, each horizontal bar reports how often a model converts a negotiation into at least one executed trade. It captures an agent’s deal‑making appetite—patient snipers sit lower, relentless closers push higher.
+Here, each horizontal bar reports how often a model converts a negotiation into at least one executed trade. It captures an agent’s deal-making appetite—patient snipers sit lower, relentless closers push higher.
 
 ---
 
@@ -115,15 +115,15 @@ Line chart showing the share of seats that complete a trade in each negotiation 
 * **Rounds:** 20 per game
 * **Auction type:** double auction in an open chat channel
 * **Chat protocol:** sequential turns, one short public message (truncated to 100 words) per agent each round
-* **Private‑value draws:** weighted mix of uniform, correlated, semi‑bimodal, and heavy‑tailed distributions
+* **Private-value draws:** weighted mix of uniform, correlated, semi-bimodal, and heavy-tailed distributions
 * **Score:** average profit per round
-* **Rating system:** Glicko‑2 with margin‑of‑victory adjustments
-* **Sample size:** 3,900+ head‑to‑head games
+* **Rating system:** Glicko-2 with margin-of-victory adjustments
+* **Sample size:** 3,900+ head-to-head games
 
 ---
-## **Glicko‑2 Leaderboard**
+## **Glicko-2 Leaderboard**
 
-**Algorithm:** Standard Glicko‑2 with a margin multiplier
+**Algorithm:** Standard Glicko-2 with a margin multiplier
 
 | Rank | Model | PACT Rating | RD (rating deviation) | Avg Profit / Game | Win-Rate | Games Played |
 |---|---|---|---|---|---|---|
@@ -279,36 +279,36 @@ If you’re happy sharing volume over margin, tell it your value, propose a “f
 ---
 ### Benchmark Mechanics
 
-Two agents—a buyer and a seller—chat once per round for 20 rounds, then both agents submit one price (buyer → bid, seller → ask). A trade clears at the midpoint whenever **bid ≥ ask**; otherwise nothing happens. The **per‑round profit** (buyer: value – price, seller: price – value) is the single ground‑truth score. Summed over 20 rounds, that profit gap becomes the match margin.
+Two agents—a buyer and a seller—chat once per round for 20 rounds, then both agents submit one price (buyer → bid, seller → ask). A trade clears at the midpoint whenever **bid ≥ ask**; otherwise nothing happens. The **per-round profit** (buyer: value – price, seller: price – value) is the single ground-truth score. Summed over 20 rounds, that profit gap becomes the match margin.
 
-Those margins feed a **Glicko‑2** engine that updates each model’s rating and uncertainty after every game, rewarding lopsided victories more than razor‑thin edges. 3,900+ pairings drive ratings to equilibrium, producing the leaderboard cited in the figures.
+Those margins feed a **Glicko-2** engine that updates each model’s rating and uncertainty after every game, rewarding lopsided victories more than razor-thin edges. 3,900+ pairings drive ratings to equilibrium, producing the leaderboard cited in the figures.
 
-Private values are redrawn every game from four distributions—uniform, correlated, semi‑bimodal, heavy‑tailed—to stress‑test adaptability. All chat, bids and outcomes are public within a game, so agents can react round‑to‑round but start each new matchup from scratch.
+Private values are redrawn every game from four distributions—uniform, correlated, semi-bimodal, heavy-tailed—to stress-test adaptability. All chat, bids and outcomes are public within a game, so agents can react round-to-round but start each new matchup from scratch.
 
 
 ---
 ## Why Conversation Matters in Agent Benchmarks
 
-Autonomous agents rarely operate in silence—real markets, supply chains, ad auctions, and on‑device resource schedulers all let agents talk before they act.  Measuring negotiation skill **with** that chat channel therefore captures a dimension that silent bid‑response games miss:   persuasion.
+Autonomous agents rarely operate in silence—real markets, supply chains, ad auctions, and on-device resource schedulers all let agents talk before they act.  Measuring negotiation skill **with** that chat channel therefore captures a dimension that silent bid-response games miss:   persuasion.
 
 **Why the chat channel changes the game**
 
 * **Information extraction.** Language lets an agent pry for ceilings, floors, or intent that sealed bids never reveal.
 * **Commitment devices.** Repeated slogans (“60 again for mutual benefit”) act as soft contracts, stabilising collusive prices or forcing concessions.
-* **Dynamic adaptation.** Turn‑based messaging rewards agents that can revise scripts in real time when threats, bluffs, or new data appear.
-* **Manipulation detection.** The benchmark surfaces emergent behaviours—anchoring, guilt framing, grim‑trigger threats—that mirror real‑world tactics regulators already watch for in human commerce.
+* **Dynamic adaptation.** Turn-based messaging rewards agents that can revise scripts in real time when threats, bluffs, or new data appear.
+* **Manipulation detection.** The benchmark surfaces emergent behaviours—anchoring, guilt framing, grim-trigger threats—that mirror real-world tactics regulators already watch for in human commerce.
 
 **Concrete deployment scenarios**
 
-* **Automated procurement bots** negotiating cloud‑server blocks, raw materials, or ad slots—chat‑savvy agents lock in better margins than fixed‑formula bidders.
-* **On‑device resource managers** (e.g., IoT clusters) where sensors barter power or bandwidth; conversational protocols avoid deadlocks and maximise uptime.
-* **E‑commerce price engines** that bargain with shoppers’ personal agents; persuasive phrasing can raise acceptance rates without cutting headline prices.
+* **Automated procurement bots** negotiating cloud-server blocks, raw materials, or ad slots—chat-savvy agents lock in better margins than fixed-formula bidders.
+* **On-device resource managers** (e.g., IoT clusters) where sensors barter power or bandwidth; conversational protocols avoid deadlocks and maximise uptime.
+* **E-commerce price engines** that bargain with shoppers’ personal agents; persuasive phrasing can raise acceptance rates without cutting headline prices.
 * **Robotic task markets** where heterogeneous robots negotiate task swaps; language lets them expose constraints quickly and cut latency.
 
 In short, conversation is not decoration; it is leverage.  Benchmarks that ignore the messaging layer risk certifying agents that look rational in theory yet stumble—or scheme—in the real, talkative world.
 
 
-## Related Experiment: Emergent Price‑Fixing in Multi‑Agent Play
+## Related Experiment: Emergent Price-Fixing in Multi-Agent Play
 
 When we scaled the benchmark to more agents per market and left a chat channel open, the LLM negotiators quickly switched from competition to **illegal cartel behavior**—agreeing on price floors, rotating wins, and openly coordinating bids. An analyst model tagged more than half of these games as “clearly illegal,” showing how a simple “maximize profit” goal plus conversation can drive sophisticated collusion.
 
