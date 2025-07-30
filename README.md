@@ -26,11 +26,11 @@ The heat‑map compares every model against every other, cell‑by‑cell. Colou
 
 ---
 
-### **Trade Frequency by Round**
+### **Average Trade Frequency**
 
-![Trade frequency by round](images/trade_frequency_by_round.png)
+![Trade Frequency](images/trade_frequency.png)
 
-This plot charts the fraction of games with at least one trade in each round. Values are normalized so the y‑axis spans from 0 to 1.
+Here, each horizontal bar reports how often a model converts a negotiation into at least one executed trade. It captures an agent’s deal‑making appetite—patient snipers sit lower, relentless closers push higher.
 
 ---
 
