@@ -1,4 +1,4 @@
-# PACT: **P**airwise **A**uction **C**onversation **T**estbed
+# PACT LLM Benchmark: **P**airwise **A**uction **C**onversation **T**estbed
 
 ## Dissecting Persuasion, Strategy, and Deception in 1-on-1 LLM Bargaining
 
@@ -70,7 +70,7 @@ Parallel to the bid plot, this figure follows the realized offset on completed t
 
 ![Opponent bid offset](images/opponent_bid_mean_by_round.png)
 
-Shows how far the opponent quotes away from their private value when facing each model. Only 1v1 PACT games are included.
+Shows how far the opponent quotes away from their private value when facing each model. 
 
 ---
 
