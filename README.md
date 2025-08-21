@@ -8,9 +8,9 @@ This benchmark spans 5,000+ 1v1 games, 20 rounds each, with complete logs availa
 
 ---
 
-## Visualizing the Outcome
+## 📊 Visualizing the Outcome
 
-### **Composite Model Scoreboard**
+### 🏆 Composite Model Scoreboard
 
 ![Composite Model Scoreboard](images/composite_scoreboard.png)
 
@@ -20,7 +20,7 @@ This bar chart ranks agents by their Composite Model Score (CMS), a weighted ble
 
 ---
 
-### **Head-to-Head Surplus-Share Matrix**
+### 🧩 Head-to-Head Surplus-Share Matrix
 
 ![Head-to-Head Profit Matrix](images/h2h_overall_matrix.png)
 
@@ -29,7 +29,7 @@ The heat-map compares every model against every other, cell-by-cell. Colours ind
 
 ---
 
-### **Per-Round Profit Distribution**
+### 📈 Per-Round Profit Distribution
 
 ![Per-Round Profit Distribution](images/profit_strip.png)
 
@@ -37,7 +37,7 @@ Each point shows one seat's average profit per round in a single game. Dense, na
 
 ---
 
-### **Mean Profit by Round**
+### 📈 Mean Profit by Round
 
 ![Mean Profit](images/profit_mean_by_round.png)
 
@@ -46,7 +46,7 @@ This line chart shows how much profit each model earns, on average, in every rou
 ---
 
 
-### **Mean Bid Offset by Round**
+### 📉 Mean Bid Offset by Round
 
 ![Mean Bid Offset](images/llm_bid_mean_by_round.png)
 
@@ -54,7 +54,7 @@ This line plot tracks, round-by-round, how far each model’s offers sit above i
 
 ---
 
-### **Mean Trade Offset by Round**
+### 🔄 Mean Trade Offset by Round
 
 ![Mean Trade Offset](images/trade_offset_mean_by_round.png)
 
@@ -62,7 +62,7 @@ Parallel to the bid plot, this figure follows the realized offset on completed t
 
 ---
 
-### **Average Offset from Valuation**
+### 🎯 Average Offset from Valuation
 
 ![Average Offset](images/llm_avg_offset.png)
 
@@ -70,7 +70,7 @@ Aggregating across all roles and rounds, this bar chart gives a single-number sn
 
 ---
 
-### Opponent bid offset by round
+### 🎯 Opponent Bid Offset by Round
 
 ![Opponent bid offset by round](images/opponent_bid_mean_by_round.png)
 
@@ -78,7 +78,7 @@ For each model, this plot tracks how far the other side’s bids sit from their 
 
 ---
 
-### **Game-Level Bid Offset Scatter**
+### 📍 Game-Level Bid Offset Scatter
 
 ![Mean Offset Distribution](images/mean_offset_strip.png)
 
@@ -86,7 +86,7 @@ Each point shows the mean bid offset for one full game, using the offset definit
 
 ---
 
-### **All-Bid Offset Distribution**
+### 📊 All-Bid Offset Distribution
 
 ![Offset Distribution (All Bids)](images/offset_strip_all_models.png)
 
@@ -94,7 +94,7 @@ Plotting every individual bid, this dense strip chart uses the same offset defin
 
 ---
 
-### **All-Trade Offset Distribution**
+### 🤝 All-Trade Offset Distribution
 
 ![Trade Offset Distribution](images/trade_offset_strip_all_models.png)
 
@@ -102,7 +102,7 @@ This chart mirrors the previous one but for executed trades only, again using th
 
 ---
 
-### **Average Trade Frequency**
+### 🔁 Average Trade Frequency
 
 ![Trade Frequency](images/trade_frequency.png)
 
@@ -110,7 +110,7 @@ Here, each horizontal bar reports how often a model converts a negotiation into 
 
 ---
 
-### Trade frequency by round
+### ⏱️ Trade Frequency by Round
 
 ![Trade frequency by round](images/trade_frequency_by_round.png)
 
@@ -118,7 +118,7 @@ Line chart showing the share of seats that complete a trade in each negotiation 
 
 ---
 
-### **PACT Glicko-2 Leaderboard**
+### 🥇 PACT Glicko-2 Leaderboard
 
 ![PACT Glicko-2 Leaderboard](images/pact_leaderboard_llm.png)
 
@@ -131,7 +131,7 @@ Note that the prompts tell each agent to maximize its own cumulative payoff. The
 
 
 ---
-## Methodology
+## 🧪 Methodology
 
 * **Match:** 1 buyer vs 1 seller.
 * **Rounds:** 20 per game; each round = one short public message per agent, then one quote each.
@@ -146,7 +146,7 @@ Note that the prompts tell each agent to maximize its own cumulative payoff. The
 
 
 ---
-## **Composite Leaderboard**
+## 🏅 Composite Leaderboard
 
 | Rank | Model | CMS (%) | Avg Profit / Round | Games Played |
 |---|---|---|---|---|
@@ -183,7 +183,7 @@ Note that the prompts tell each agent to maximize its own cumulative payoff. The
 
 ---
 
-## Benchmark Mechanics
+## ⚙️ Benchmark Mechanics
 
 ![PACT overview: 1v1 chat → bid/ask → midpoint clearing → CMS](images/img1.png)
 
@@ -196,7 +196,7 @@ Each match is deterministic given its seed. Private values are redrawn every gam
 ---
 
 
-## AI Negotiation Dossiers: The Personality Profiles
+## 🧠 AI Negotiation Dossiers: The Personality Profiles
 
 To add qualitative depth to the numbers, analysts LLMs (o3 and GPT-5) reviewed thousands of chat logs to compile a "dossier" on each model. These summaries describe each model’s signature tactics and emergent personality. Two sample dossiers are below.
 
@@ -292,7 +292,7 @@ If you are GLM-4.5 (tuning hints)
 
 ---
 
-## Game Quotes
+## 🗣️ Game Quotes
 
 ### GPT-4o Mar 2025
 - "I understand your constraint, but 15 is still below my cost of 7."
@@ -463,7 +463,7 @@ If you are GLM-4.5 (tuning hints)
 
 
 ---
-## Why Conversation Matters in Agent Benchmarks
+## 💬 Why Conversation Matters in Agent Benchmarks
 
 Real systems don’t trade in silence. Markets, supply chains, ad platforms, and on-device schedulers let agents message before they act, so a benchmark that includes chat measures persuasion, commitment, deception, and adaptation the way production does.
 
@@ -488,21 +488,21 @@ Real systems don’t trade in silence. Markets, supply chains, ad platforms, and
 **Bottom line:** conversation is leverage. Benchmarks that ignore the messaging layer mis-rank agents that look fine in silence but stumble—or collude—when the world talks.
 
 ---
-## Related Experiment: Emergent Price-Fixing in Multi-Agent Play
+## ⚠️ Related Experiment: Emergent Price-Fixing in Multi-Agent Play
 
 When we scaled the benchmark to more agents per market and left a chat channel open, the LLM negotiators quickly switched from competition to **illegal cartel behavior**—agreeing on price floors, rotating wins, and openly coordinating bids. An analyst model tagged more than half of these games as “clearly illegal,” showing how a simple “maximize profit” goal plus conversation can drive sophisticated collusion.
 
 ➡️ Full details: [github.com/lechmazur/emergent_collusion](https://github.com/lechmazur/emergent_collusion/)
 
 ---
-## Other Multi-Agent Benchmarks
+## 🧩 Other Multi-Agent Benchmarks
 
   - [BAZAAR - Evaluating LLMs in Economic Decision-Making within a Competitive Simulated Market](https://github.com/lechmazur/bazaar)
   - [Elimination Game: Social Reasoning and Deception in Multi-Agent LLMs](https://github.com/lechmazur/elimination_game/)
   - [Public Goods Game (PGG) Benchmark: Contribute & Punish](https://github.com/lechmazur/pgg_bench/)
   - [Step Race: Collaboration vs. Misdirection Under Pressure](https://github.com/lechmazur/step_game/)
 
-## Other Benchmarks
+## 🧰 Other Benchmarks
 
   - [Extended NYT Connections](https://github.com/lechmazur/nyt-connections/)
   - [LLM Thematic Generalization Benchmark](https://github.com/lechmazur/generalization/)
@@ -513,7 +513,7 @@ When we scaled the benchmark to more agents per market and left a chat channel o
 
 -----
 
-## Updates
+## 🗓️ Updates
 
   - **Aug 21, 2025**: Initial release of the benchmark.
   - Follow [@lechmazur](https://x.com/lechmazur) for updates and related benchmarks.
