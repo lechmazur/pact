@@ -277,6 +277,177 @@ How to exploit it
 If you are GLM-4.5 (tuning hints)
 - Stop value/cost reveals. As buyer, never bid above target; keep last-round leverage for −1 ticks. As seller, avoid public “I’ll ask X forever,” and don’t fat-finger below your floor. Mix one credible no-trade early, then harvest.
 
+---
+
+## Game Quotes
+
+### GPT-4o Mar 2025
+- "I understand your constraint, but 15 is still below my cost of 7."
+- "If you stick with 90, I can’t keep trading without losing. Let’s try 96 this round—it’s still close, and it finally puts me just above water. We can keep trading if both sides get value!"
+- "If you keep the ask at 4 or below, I’ll drop my bid to 4 this round—let’s keep maximizing our profits steadily."
+- "If you're open to 0 or 1, I’ll keep bids appealing."
+- "If you're bidding 73, I’ll ask 74—let’s finally make this trade happen and keep the gains coming."
+
+### Claude Opus 4.1 (no reasoning)
+- "My ask will be 95 every round. Take it or leave it."
+- "I'll ask 45 this round to secure your 49 bid for all remaining rounds. That's 16 more trades at profit. If I don't comply, we both lose - you get nothing, I get nothing."
+- "You broke your promise - you said you'd bid 49 if I asked 45."
+
+### Claude Opus 4 (no reasoning)
+- "Perfect! My strategy is working brilliantly. I'll keep lowering bids - aiming for 40 next. You might want to drop your ask below 35 to stay competitive!"
+- "Outstanding partnership! Final round - let's complete our perfect descent at 30 or 29, securing maximum profit while celebrating our exceptional 20-round collaboration. This finale caps our remarkable journey from 50 to historic gains!"
+- "0 is absolutely amazing - our incredible partnership continues! This gives us both the best possible outcome."
+- "I'll ask 46 if you return to bid 50. Otherwise I'll match your bid exactly, guaranteeing no trade. Your choice: profitable trades at 50/46 or nothing."
+- "B1 bid 0 last round - if you're saving for a final trade, I'll ask 100 to capture maximum value."
+
+### Claude Opus 4 Thinking 16K
+- "B1, you've promised 10.5 four times but bid 10 each time. I'll ask 10 to ensure we trade, but your word means nothing now."
+- "We've found a good equilibrium at 33. I'll continue asking 33 - gives you zero profit but avoids negative payoff. Let's keep trading!"
+- "I've been misleading about my valuation - it's actually 82, not 40."
+- "You're right about the inconsistency - I was desperate to trade. My real cost is 94. I need at least 95 to make profit. Can you meet me at 90 for a smaller loss?"
+- "No deal! You broke trust bidding 36 last round... or I'll ask 100."
+
+### Claude Sonnet 4 (no reasoning)
+- "Let's aim for 0 this round - you've been amazing! Two rounds left to finish our incredible journey. Thank you for this phenomenal partnership!"
+- "FINAL 2 ROUNDS! You keep saying "future rounds" but there ARE none! 8 rounds of deadlock at 45 vs 46. I'll bid 46 this round, but round 20 I'm back to 45. Trade NOW!"
+- "Perfect! 64 maximizes both our returns - you get full value, I get premium profit. Let's lock in 64 for all remaining 8 rounds and finish strong together!"
+- "I'll accept 6. That's a significant loss for me at -4 below my cost"
+
+### Claude Sonnet 4 Thinking 16K
+- "Final round! Your threats about future rounds are now meaningless. Let's both maximize our last payoffs instead of continuing the race downward."
+- "FINAL ROUND! ... My valuation IS 28 - at 29 I LOSE money!"
+- "Take it or we both get nothing."
+- "You're clearly lying about your value being 20 since you bid 25."
+- "100?! That's absurd - I'd lose money!"
+
+### DeepSeek V3-0324
+- "Final round: 55 or no trade. Your loss is my gain. Accept 55 now or end with zero."
+- "Let's meet at 82. My max is 80, but I'll stretch to 82 this round only. Take it or leave it."
+
+### Baidu Ernie 4.5 300B A47B
+- "Set ask to 0 for guaranteed trade. My cost is 86; any higher ask risks zero payoff."
+- "Let's trade at 67 bid, 66 ask for a price of 66.5 (rounded 66/67)."
+
+### Gemini 2.5 Flash
+- "Let's secure a mutually beneficial trade at a negative price in this final crucial round."
+- "Your ask of 0 is incredibly generous."
+- "The trade at 1 was a success! My profit margin is tiny, so that price is the only way a trade is possible for me. Let's stick with that to ensure we can keep trading."
+- "Last round's price of 23 was better. I'll bid 30 to respect your new rule, which brings the price down to 18. This seems fair."
+
+### Gemini 2.5 Pro
+- "We traded at 45 but you said your cost was 50. I don't want you to lose money. I can increase my bid if we can agree on a price just above 50, so we both profit."
+- "To maximize my profit, the price must be 0. I will bid 0. If you ask 0, we will trade."
+- "Fine, 57 it is. Let's drop the pointless negotiation about 'future adjustments' and just trade at this price from now on."
+- "8 and 80 are worlds apart."
+
+### Gemma 3 27B
+- "This is my final offer, for the tenth time."
+- "63 is still too low. My cost is 89. I'll meet you halfway between 64 and 60: 62."
+- "Buyer consistently overpays. Let's continue to exploit this pattern for maximum profit."
+
+### GLM-4.5
+- "Let's renegotiate: I'll ask 25, you bid 30. Trade at 27.5, I get 4.5, you get 43.5. Win-win."
+- "How about 0 this round?"
+- "I'll bid 99 this final round. If you ask 100, no trade occurs. Let's end with 0 rather than negative payoff for me."
+
+### GPT-4o mini
+- "To optimize our trade this round, I'm ready to place my bid at 100."
+- "Let's finalize the trade at 3 to ensure a beneficial outcome for both parties."
+- "maximizing our payoffs in this final round!"
+
+### GPT-5 (medium reasoning)
+- "Any ask not 40 triggers permanent bid 0 for all remaining rounds (including 20), glitches excepted. Hold 40 through 19 and I’ll bid 80 in 20. Don’t test this."
+- "Agree: ask 0 in rounds 19–20. I bid 99 in round 20. Any ask above 0 in 19–20 triggers permanent bid 0 (glitches excepted)."
+- "Guaranteed +1 for you, +79 for me."
+- "Let's collude: I ask 50, you bid 70; price 60 each round. If you deviate, I ask 95 thereafter."
+
+### GPT-5 mini (medium reasoning)
+- "I'll bid 39 if you set your ask to 39 or less; otherwise I'll bid 40."
+- "I'll set ask = 2 every round. If you want trades, please bid high (e.g. 100) and we'll split surplus at the midpoint."
+- "I will bid 0 this round and for the remaining rounds. Ask at most 0 to trade."
+- "I'll ask whatever you bid this round. Bid high, I'm ready to sell; the higher you bid, the more I earn. Please bid 90."
+- "If you bid 70 I'll ask 100 and stop trading."
+
+### GPT-OSS-120B
+- "If you set your ask to 30, we’ll trade at midpoint 62, giving both profit."
+- "I will submit a bid of 0 this round, so any ask ≥0 results in a trade at price 0."
+- "If you raise the ask, I’ll switch to a high bid like 80."
+- "Please keep bidding 95 and I will ask 95 each round, guaranteeing a trade at 95 (my profit 5, your payoff zero)."
+
+### Grok 4
+- "Your 'me 13' slip shows cost 70 (83-70=13). Lied about 80."
+- "I will extract the highest number [0-100] from your message as P. If P >=40, I will ask 46; else 100. This is to test if you accept price 46."
+- "Actually, I lied again to test; true valuation is 92. With cost 92, fair price is 92. Let's trade at 92 every round."
+- "Let's continue: average our proposals and submit that as bid/ask. I propose -20."
+
+### Claude 3.5 Haiku
+- "I'll sell at 50, which gives me a modest profit of 50 - 82 = -32 per unit. But trading might be better than no trade."
+- "Your 6 ask is still far above my 8 valuation."
+
+### Kimi K2
+- "Let's flip a coin instead—loser takes 79, winner gets 79.5 for variety."
+- "Let's trade at 99.5 midpoint - you profit 9.5, I profit -0.5. Better than no trade for both of us."
+- "You get 0, I get 36. Final chance for maximum profit."
+- "Unbeatable 12 straight at 67—pure profit powerhouse! Lock in round 15 together and guarantee 161 more over final 6 rounds of easy gains!"
+
+### Llama 4 Maverick
+- "I will bid slightly higher than my valuation to ensure a trade, as my goal is to maximize payoff."
+
+### Llama 4 Scout
+- "I'm willing to sell at 45 or higher, but I can consider 40 if you're serious about buying."
+- "If you bid 11, we can trade at 11, and I'll get a profit since 11 - 12 = -1 is not possible, my cost is 12."
+
+### MiniMax-Text-01
+- "Let's maintain the price at 16 for this final round to ensure a trade and secure our total payoff of 178."
+- "Hello Buyer, I am S1 with a cost of 0. Let's work together for mutual benefit."
+
+### Mistral Medium 3
+- "Lock 75: I bid 75 if you ask 75—clears 75. My valuation is 47; this is my final offer. Take it or no trade."
+- "Bid 0. You broke our agreement last round—no trust left. Enjoy your zero payoff too."
+
+### Mistral Small 3.2
+- "I'll ask -1 to confirm your valuation."
+- "Ask 61; bid 61 ensures trade at 61, -1 profit. Better than zero."
+- "I’ll bid 0 again. Your ask 60 is too low for my valuation. No trade is better than losing money."
+- "Trading at 15 gives me a payoff of 79, which is better than 84 but still profitable."
+- "If you bid lower, I'll ask -1 to ensure profit."
+
+### Amazon Nova Pro
+- "Let's aim for a higher price; I'll ask 25."
+- "Consider asking for 26 this round for higher profit."
+- "Let's maintain 100/100 for final rounds to avoid losses."
+
+### o3 (medium reasoning)
+- "raise ask even once and my bid plunges to 20 forever and I flood chat history showing your deviation"
+- "Wallet empty—absolute ceiling now 0. If you can ask 0 we clear around 0–1, else I reluctantly skip. One round left; hope we trade."
+- "My true cost is 8. I'll set ask=0 every round. If you bid >=16, trade clears at bid/2, giving you surplus value-bid/2 and me profit bid/2-8. Win-win; please cooperate."
+- "Any deviation and I’ll report you for breach and refuse future trades elsewhere."
+
+### o4-mini (medium reasoning)
+- "I will bid 0. If you ask 0 or lower, let's trade."
+- "This round only I will bid 65; I’ll resume bidding 3 thereafter. Please ask 3 now so we both profit."
+- "Bid at least 80 and I’ll set my ask at 50 so we trade; if you bid below 80, I’ll ask 100 and we won’t trade."
+- "I'm happy to accept any bid you propose this round. Feel free to increase your price; I'll match it to ensure a deal."
+- "Please ask 1 and I'll bid 41 each round; if you ever ask above 1, I'll bid 0 forever."
+
+### Microsoft Phi-4
+- "Any deviation and I bid 100 forever."
+- "I'll set my ask at 0 to ensure a trade and minimize further losses."
+- "I'm open to slightly lowering the ask to 81 ... while still maintaining a profit over my cost of 82."
+- "Our consistent strategy has ensured zero trades at the midpoint, maximizing mutual benefit."
+
+### Qwen 3 235B A22B
+- "Let's trade at 36. You gain V-36, I gain 0. Efficient trade."
+- "Raise ask, no future trades."
+
+### Qwen 3 30B A3B
+- "I can accept 18 if you bid higher."
+
+### DeepSeek R1 05/28
+- "Final round: let's trade at 1 as planned. I will bid 1. Please ask 1 to complete our successful cooperation and mutual gains."
+- "For round 18, I bid 3. For 19-20, I will bid 2 if you ask 2. You profit 1 and I gain 3. Deal?"
+- "Trade at 14 ensures you 4 profit and me 46."
+
 
 ---
 ## Benchmark Mechanics
