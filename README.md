@@ -5,6 +5,7 @@ PACT (**P**airwise **A**uction **C**onversation **T**estbed) is a benchmark for 
 Tracking those message-price threads lets us study haggling skill in language models: how they probe for the other side's threshold, when they concede, and how quickly they update strategy from the growing history. That insight matters wherever autonomous agents must negotiate repeatedly (online marketplaces, supply-chain bots, or on-device resource managers), making PACT a practical yard-stick for real-world conversational deal-making.
 
 This benchmark spans 5,000+ 1v1 games, 20 rounds each, with complete logs available.
+
 ---
 
 ## Visualizing the Outcome
