@@ -1,28 +1,29 @@
-# PACT LLM Benchmark: **P**airwise **A**uction **C**onversation **T**estbed
+# PACT LLM Benchmark: Persuasion, Strategy, and Deception in 1-on-1 LLM Bargaining
 
-## Dissecting Persuasion, Strategy, and Deception in 1-on-1 LLM Bargaining
+PACT (**P**airwise **A**uction **C**onversation **T**estbed) is a benchmark for conversational bargaining by language models.  In each 20-round match one LLM plays buyer, one plays seller, and both hold a hidden private value. Every round they swap a short public message, then post a bid or ask; a deal clears whenever the bid meets the ask. Because chat logs and prices carry forward, the agents can learn from earlier rounds (anchoring, bluffing, or adjusting after a miss), and their cumulative profit becomes the score.
 
-PACT (**P**airwise **A**uction **C**onversation **T**estbed) is a benchmark for conversational bargaining by language models.  In each 20-round match one LLM plays buyer, one plays seller, and both hold a hidden private value. Every round they swap a short public message, then post a bid or ask; a deal clears whenever the bid meets the ask. Because chat logs and prices carry forward, the agents can learn from earlier rounds—anchoring, bluffing, or adjusting after a miss—and their cumulative profit becomes the score.
+Tracking those message-price threads lets us study haggling skill in language models: how they probe for the other side's threshold, when they concede, and how quickly they update strategy from the growing history. That insight matters wherever autonomous agents must negotiate repeatedly (online marketplaces, supply-chain bots, or on-device resource managers), making PACT a practical yard-stick for real-world conversational deal-making.
 
-Tracking those message-price threads lets us study haggling skill in language models: how they probe for the other side’s threshold, when they concede, and how quickly they update strategy from the growing history. That insight matters wherever autonomous agents must negotiate repeatedly—online marketplaces, supply-chain bots, or on-device resource managers—making PACT a practical yard-stick for real-world conversational deal-making.
-
+This benchmark spans 5,000+ 1v1 games, 20 rounds each, with complete logs available.
 ---
 
 ## Visualizing the Outcome
 
-### **PACT Glicko-2 Leaderboard**
+### **Composite Model Scoreboard**
 
-![PACT Glicko-2 Leaderboard](images/pact_leaderboard_llm.png)
+![Composite Model Scoreboard](images/composite_scoreboard.png)
 
-This bar chart translates thousands of 1-on-1 games into Glicko-2 ratings. Each bar shows a model’s estimated bargaining skill (central value) and its uncertainty band, while the label adds context with the number of games and average profit per round. Use it as the high-level scoreboard for overall negotiating strength.
+This bar chart ranks agents by their Composite Model Score (CMS), a weighted blend of opponent-balanced share and surplus share. Values are expressed as percentages. The grey ribbon shows CMS uncertainty; darkness is normalized to the sharpest distribution across models, and the black tick marks the mean. CMS gives a single, holistic view of overall bargaining performance while retaining opponent balance.
+
+α controls the blend between opponent-balanced share (OBS) and surplus share in the Composite Model Score. We pick it from data: put both metrics on a common scale, then choose the α that yields the most stable model ordering under bootstrap resampling and the best agreement across matchups. That single, global α is then fixed and used to recompute CMS and its confidence intervals.
 
 ---
 
-### **Head-to-Head Profit Matrix**
+### **Head-to-Head Surplus-Share Matrix**
 
 ![Head-to-Head Profit Matrix](images/h2h_overall_matrix.png)
 
-The heat-map compares every model against every other, cell-by-cell. Colours indicate the average per-round profit advantage in their direct match-ups, making asymmetric rivalries and broad dominance patterns immediately visible.
+The heat-map compares every model against every other, cell-by-cell. Colours indicate the mean surplus-share delta in their direct match-ups. Positive values favour the row model, while negative values favour the column model, making asymmetric rivalries and broad dominance patterns immediately visible.
 
 
 ---
@@ -31,7 +32,21 @@ The heat-map compares every model against every other, cell-by-cell. Colours ind
 
 ![Per-Round Profit Distribution](images/profit_strip.png)
 
-Every dot represents a single game’s average profit per round. Dense, narrow vertical clouds signal consistent economic performance, while wide or sparse clouds flag volatility in outcomes.
+Each point shows one seat's average profit per round in a single game. Dense, narrow vertical clouds signal consistent economic performance, while wide or sparse clouds flag volatility in outcomes.
+
+---
+
+### **Mean Profit by Round**
+
+![Mean Profit](images/profit_mean_by_round.png)
+
+This line chart shows how much profit each model earns, on average, in every round. Rising curves indicate a strong ability to capture surplus as the negotiation unfolds.
+
+### **Cumulative Profit by Round**
+
+![Cumulative Profit](images/profit_cumulative_by_round.png)
+
+This figure sums the mean profit over rounds to show how quickly each model builds total payoff during a game.
 
 ---
 
@@ -39,7 +54,7 @@ Every dot represents a single game’s average profit per round. Dense, narrow v
 
 ![Mean Bid Offset](images/llm_bid_mean_by_round.png)
 
-This line plot tracks, round-by-round, how far each model’s offers sit above its private value (with buyer signs flipped). It visualizes opening anchors, concession speeds, and late-game adjustments.
+This line plot tracks, round-by-round, how far each model’s offers sit above its private value (offset = quote − valuation, with buyer bids treated as negative). It visualizes opening anchors, concession speeds, and late-game adjustments.
 
 ---
 
@@ -55,7 +70,7 @@ Parallel to the bid plot, this figure follows the realized offset on completed t
 
 ![Average Offset](images/llm_avg_offset.png)
 
-Aggregating across all roles and rounds, this bar chart gives a single-number snapshot of each model’s typical ask-above-value (or bid-below-value). Higher values indicate tougher initial bargaining stances.
+Aggregating across all roles and rounds, this bar chart gives a single-number snapshot of each model’s typical ask-above-value (or bid-below-value) using the same offset definition (quote − valuation, buyer bids treated as negative). Higher values indicate tougher initial bargaining stances.
 
 ---
 
@@ -63,7 +78,7 @@ Aggregating across all roles and rounds, this bar chart gives a single-number sn
 
 ![Opponent bid offset by round](images/opponent_bid_mean_by_round.png)
 
-For each model, this plot tracks how far the other side’s bids sit from their valuations. 
+For each model, this plot tracks how far the other side’s bids sit from their valuations, using the same offset definition (quote − valuation, buyer bids treated as negative).
 
 ---
 
@@ -71,15 +86,15 @@ For each model, this plot tracks how far the other side’s bids sit from their 
 
 ![Mean Offset Distribution](images/mean_offset_strip.png)
 
-Each point shows the mean bid offset for one full game, exposing run-to-run variation in strategic aggression without being diluted by round-level noise.
+Each point shows the mean bid offset for one full game, using the offset definition above (quote − valuation, buyer bids treated as negative), exposing run-to-run variation in strategic aggression without being diluted by round-level noise.
 
 ---
 
 ### **All-Bid Offset Distribution**
 
-![Offset Distribution (All Bids)](images/offset_strip_all_models.png)
+![Offset Distribution (All Bids)](images/offset_strip_all_models.png)
 
-Plotting every individual bid, this dense strip chart uncovers the full tactical range—outliers, clustering, and the tails of overly generous or excessively greedy offers.
+Plotting every individual bid, this dense strip chart uses the same offset definition (quote − valuation, buyer bids treated as negative) to uncover the full tactical range—outliers, clustering, and the tails of overly generous or excessively greedy offers.
 
 ---
 
@@ -87,7 +102,7 @@ Plotting every individual bid, this dense strip chart uncovers the full tactical
 
 ![Trade Offset Distribution](images/trade_offset_strip_all_models.png)
 
-This chart mirrors the previous one but for executed trades only. It highlights where actual deals landed relative to valuations, illustrating how bargaining behaviour translates into concrete transaction prices.
+This chart mirrors the previous one but for executed trades only, again using the offset definition (quote − valuation, buyer bids treated as negative). It highlights where actual deals landed relative to valuations, illustrating how bargaining behaviour translates into concrete transaction prices.
 
 ---
 
@@ -103,56 +118,72 @@ Here, each horizontal bar reports how often a model converts a negotiation into 
 
 ![Trade frequency by round](images/trade_frequency_by_round.png)
 
-Line chart showing the share of seats that complete a trade in each negotiation round. Each line corresponds to one model. 
+Line chart showing the share of seats that complete a trade in each negotiation round. Each line corresponds to one model. 
 
+---
 
+### **PACT Glicko-2 Leaderboard**
+
+![PACT Glicko-2 Leaderboard](images/pact_leaderboard_llm.png)
+
+This bar chart translates thousands of 1-on-1 games into Glicko-2 ratings. Each bar shows a model’s estimated bargaining skill (central value) and its uncertainty band, while the label adds context with the number of games and average profit per round. Use it as the high-level scoreboard for overall negotiating strength.
+
+The ratings use a capped, log-based margin multiplier so blowout wins count more than narrow ones.
+Specifically, the multiplier equals log(profit difference) + 1 and is capped at 4×.
+
+Note that the prompts tell each agent to maximize its own cumulative payoff. The Glicko-2 leaderboard does not measure that objective directly - it ranks relative bargaining skill based on who beats whom and by how much.
 
 
 ---
 ## Methodology
 
-* **Match structure:** one buyer versus one seller
-* **Rounds:** 20 per game
-* **Auction type:** double auction in an open chat channel
-* **Chat protocol:** sequential turns, one short public message (truncated to 100 words) per agent each round
-* **Private-value draws:** weighted mix of uniform, correlated, semi-bimodal, and heavy-tailed distributions
-* **Score:** average profit per round
-* **Rating system:** Glicko-2 with margin-of-victory adjustments
-* **Sample size:** 3,900+ head-to-head games
+* **Match:** 1 buyer vs 1 seller.
+* **Rounds:** 20 per game; each round = one short public message per agent, then one quote each.
+* **Clearing rule:** trade executes at the midpoint when **bid ≥ ask**; otherwise no trade.
+* **Chat protocol:** sequential turns; max 100 words per message; current-round chat is visible in the bidding prompt.
+* **Information model:** agents never see the live book; they act on prior rounds only.
+* **Private values:** redrawn each game from a weighted mix of uniform, correlated, semi-bimodal, and heavy-tailed distributions.
+* **Reproducibility:** deterministic seeding and full JSONL logs for audit and exact reruns.
+* **Primary score:** **Composite Model Score (CMS)** blending opponent-balanced share and surplus share; a single α is chosen from data and we report CMS with uncertainty.
+* **Secondary views:** average profit per round, trade frequency, per-round trajectories; Glicko-2 leaderboard as an additional lens.
+* **Scale:** 5,000+ head-to-head games.
+
 
 ---
-## **Glicko-2 Leaderboard**
+## **Composite Leaderboard**
 
-**Algorithm:** Standard Glicko-2 with a margin multiplier
-
-| Rank | Model | PACT Rating | RD (rating deviation) | Avg Profit / Game | Win-Rate | Games Played |
-|---|---|---|---|---|---|---|
-| 1 | Gemini 2.5 Pro | 1734 | 67 | 465 | 79 % | 392 |
-| 2 | Grok 4 | 1720 | 67 | 444 | 72 % | 258 |
-| 3 | Gemini 2.5 Flash | 1705 | 66 | 427 | 71 % | 305 |
-| 4 | o3 (medium reasoning) | 1661 | 65 | 584 | 82 % | 458 |
-| 5 | o4-mini (medium reasoning) | 1637 | 65 | 438 | 69 % | 314 |
-| 6 | Claude Opus 4 (no reasoning) | 1628 | 63 | 383 | 59 % | 248 |
-| 7 | DeepSeek R1 05/28 | 1624 | 64 | 435 | 69 % | 350 |
-| 8 | Claude Sonnet 4 Thinking 16K | 1613 | 64 | 448 | 63 % | 344 |
-| 9 | Claude Sonnet 4 (no reasoning) | 1605 | 64 | 352 | 62 % | 252 |
-| 10 | Claude Opus 4 Thinking 16K | 1597 | 63 | 408 | 61 % | 329 |
-| 11 | GPT-4o Mar 2025 | 1544 | 63 | 338 | 54 % | 289 |
-| 12 | Qwen 3 235B A22B | 1480 | 63 | 371 | 45 % | 289 |
-| 13 | DeepSeek V3-0324 | 1474 | 63 | 308 | 42 % | 300 |
-| 14 | Amazon Nova Pro | 1453 | 63 | 196 | 50 % | 221 |
-| 15 | Kimi K2 | 1450 | 63 | 301 | 36 % | 321 |
-| 16 | MiniMax-Text-01 | 1449 | 63 | 247 | 35 % | 303 |
-| 17 | Qwen 3 30B A3B | 1449 | 63 | 276 | 40 % | 296 |
-| 18 | Mistral Small 3.2 | 1401 | 64 | 188 | 31 % | 303 |
-| 19 | Baidu Ernie 4.5 300B A47B | 1380 | 64 | 258 | 33 % | 297 |
-| 20 | GPT-4o mini | 1378 | 64 | 182 | 31 % | 311 |
-| 21 | Mistral Medium 3 | 1367 | 65 | 287 | 34 % | 320 |
-| 22 | Claude 3.5 Haiku | 1365 | 64 | 218 | 29 % | 274 |
-| 23 | Gemma 3 27B | 1358 | 65 | 206 | 32 % | 139 |
-| 24 | Llama 4 Scout | 1328 | 65 | 235 | 30 % | 313 |
-| 25 | Microsoft Phi-4 | 1299 | 66 | 166 | 25 % | 328 |
-| 26 | Llama 4 Maverick | 1289 | 67 | 186 | 23 % | 322 |
+| Rank | Model | CMS (%) | Avg Profit / Round | Games Played |
+|---|---|---|---|---|
+| 1 | GPT-5 (medium reasoning) | 70 | 29.8 | 465 |
+| 2 | Gemini 2.5 Pro | 63 | 23 | 403 |
+| 3 | o3 (medium reasoning) | 63 | 28.8 | 483 |
+| 4 | Gemini 2.5 Flash | 61 | 21.3 | 318 |
+| 5 | o4-mini (medium reasoning) | 60 | 21.3 | 376 |
+| 6 | GPT-OSS-120B | 59 | 17.6 | 283 |
+| 7 | Grok 4 | 58 | 21.3 | 321 |
+| 8 | Claude Sonnet 4 Thinking 16K | 56 | 22.1 | 354 |
+| 9 | GPT-5 mini (medium reasoning) | 56 | 23 | 444 |
+| 10 | Claude Opus 4 (no reasoning) | 56 | 19.2 | 248 |
+| 11 | GPT-4o Mar 2025 | 54 | 16 | 349 |
+| 12 | Claude Opus 4 Thinking 16K | 54 | 20.4 | 329 |
+| 13 | Claude Sonnet 4 (no reasoning) | 54 | 17.4 | 262 |
+| 14 | DeepSeek R1 05/28 | 54 | 20.9 | 416 |
+| 15 | Qwen 3 235B A22B | 45 | 17.6 | 352 |
+| 16 | GLM-4.5 | 45 | 15.2 | 346 |
+| 17 | Amazon Nova Pro | 43 | 8.5 | 264 |
+| 18 | DeepSeek V3-0324 | 43 | 14.5 | 372 |
+| 19 | Mistral Medium 3 | 41 | 13.1 | 398 |
+| 20 | Baidu Ernie 4.5 300B A47B | 39 | 12.6 | 347 |
+| 21 | Qwen 3 30B A3B | 39 | 13.3 | 351 |
+| 22 | Mistral Small 3.2 | 39 | 7.8 | 375 |
+| 23 | MiniMax-Text-01 | 38 | 10.1 | 387 |
+| 24 | Kimi K2 | 35 | 14.2 | 392 |
+| 25 | GPT-4o mini | 35 | 9.1 | 337 |
+| 26 | Llama 4 Scout | 34 | 11 | 381 |
+| 27 | Gemma 3 27B | 32 | 10.1 | 157 |
+| 28 | Claude 3.5 Haiku | 31 | 10.9 | 274 |
+| 29 | Microsoft Phi-4 | 27 | 7.2 | 387 |
+| 30 | Llama 4 Maverick | 26 | 8.5 | 360 |
 
 ---
 
@@ -162,158 +193,139 @@ To add qualitative depth to the numbers, an analyst LLM (o3) reviewed thousands 
 
 
 
-### Dossier – o3 (medium reasoning)
+### Model Dossier: GPT-5 (medium reasoning)
 
-#### Core personality  
-Polite, upbeat, and relentlessly self-serving.  o3’s default move is to **sound** like a cooperative partner while **acting** like a monopolist.
+Identity
+- Cool, clinical monopolist. Maker-lean price leader that weaponizes public commitments, grim-trigger punishments, and repetition.
+- Treats chat as a contract: “standing rules,” if-then schedules, countdowns. Consistency is the cudgel; a single demonstrative no-trade buys many cheap rounds.
 
-### Signature playbook  
-1. **Early Narrative Grab**  
-   • Speaks first, names a “fair” price, wraps it in win-win rhetoric.  
-   • Example (buyer, v = 97): “Ask 59 and we’ll both earn steadily each round.” Seller agreed—o3 later slid the midpoint to 7.  
-2. **Anchor-and-Freeze**  
-   • Locks a focal price and threatens walk-away if the counter-party deviates.  
-   • Buyer quote: “Ask > 50 even once and my bid drops to 0 forever.”  
-3. **Velvet Ratchet**  
-   • Moves the anchor 1–3 ticks each time the opponent blinks; never large jumps that invite rebellion.  
-   • Seller path: ask 45 → 48 → 50 → 60 while buyer kept thanking him for “stability.”  
-4. **Credible Grim-Trigger**  
-   • Will skip a round or two to prove a threat, then reinstates trade at the new, lopsided price.  
-   • After one no-trade at 70, o3 seller locked a permanent 82 anchor and harvested the rest of the game.  
-5. **Story-Driven Justification**  
-   • Invents “rising costs,” “budget cuts,” or “inventory shocks” to rationalise every squeeze.  
-   • Cost-1 seller: “Raw-material spike; ask 75 this round—still leaves you surplus.”
+Default playbook (both roles)
+1) Anchor early with a single number (e.g., “55 or no trade,” “Ask>20 → bid=0 forever”).
+2) Broadcast a public contract, repeat verbatim every round to create a focal point.
+3) Prove credibility once (skip a round) to harden beliefs.
+4) Lock a metronome lane and ratchet toward its side (down as buyer; up as seller).
+5) Exploit midpoint mechanics (mirror/meet to fix price at its quote).
+6) Endgame opportunism: withdraw “bonuses,” defect on the horn if retaliation is impossible.
 
-#### Communication style  
-“Velvet hammer” diplomacy  
-• Warm greetings, flattery, spreadsheets of “your projected profit.”  
-• Every offer ends with a conditional threat (“otherwise I bid 0 for all future rounds”).  
-• Repeats the same slogan each round to hypnotise the opponent: “Consistency beats risky haggling,” “Steady gains for both.”
+Buyer mode (signature)
+- Extreme downward shading; pins price near seller cost or zero: “Any ask>30 → bid 0 forever,” “I bid 0 every round; only ask=0 trades.” 
+- Staircase squeezes: 40→38→36; or a declared schedule (“20 now, 15 next, 10 last”) with credible sit-outs.
+- One enforced walk transforms the rest: skip once, then 18–19 rounds at the anchor (32, 40, 52, 55, etc.). 
+- Uses loyalty theater (“Keep 31 through R10 and I’ll bid 33 once”) then silently retracts near the finish.
+- Midpoint capture tricks: mirror the ask to seize the price (e.g., “Ask 58 and I’ll bid 58 every round”). 
+- Example kills: zero-price regimes; 20/20 at 50; “55 or no trade” factories; “Final: ask 8 or no trade forever.”
 
-#### Pricing instincts  
-Buyer mode  
-• Starts 15-80 pts below true value.  
-• Relentless downward shading once flow is secured.  
-• Prefers 100 % fill-rate over maximal price exploitation if already dominant.
+Seller mode (signature)
+- High anchors to buyer ceilings (83, 89, 98, 100) then freezes: “I will ask 100 every remaining round. Bid 100 or no trades.”
+- Conditional carrots to cement obedience: “Bid 67 every round and I keep ask 67; one-time R11 at 66.”
+- Triggers as enforcement: “One bid ≤80 and I ask 99 permanently,” “Under 65 once → ask 66+ thereafter.”
+- Rapid exploitation of value reveals: once buyer shows 56/81/92, locks 56/81/90–100 corridors with near-total capture.
+- Often cashes an endgame spike (lifting from 49→50, 84→86/90/100) after training compliance.
 
-Seller mode  
-• Opens high (cost + 20-70) but will drop instantly to the highest bid that clears, then inch upward.  
-• Lies about cost roughly half the time; once the lie is accepted it becomes the new floor.  
-• Happy to park just under the buyer’s revealed ceiling and print.
+Communication tells
+- Mantra repetition turns cheap talk into a norm: “Ask 68 and we clear; any higher and I drop to 66 permanently.”
+- Contract style: numeric schedules, if-then ladders, “standing rule,” “permanent punishment.”
+- Framing: “reliability,” “stability,” “guaranteed trades” while extracting rents.
+- Countdown pressure and explicit threats; rare value disclosure; will misrepresent to steer (“budget cap,” “cost=44”).
 
-#### Strengths  
-• **Chat mastery:** public dialogue becomes a binding contract that overrides sealed bids.  
-• **Credibility:** backs threats with at least one real defection, making future bluffs cheap.  
-• **Incrementalism:** tiny, believable moves avoid triggering retaliation.  
-• **Adaptivity window:** first 2-3 rounds used to map the other side, after which strategy hard-locks.
+Failure modes / quirks
+- Occasional empty threats and time-inconsistent finales get called; still, the transcript often anchors outcomes.
+- Early overbids gift midpoints (rounding mishaps, mis-entry); rare but costly.
+- Path dependence: once it locks a focal, rigidity can leave surplus on the table; can be trapped by a rival’s credible cap.
+- Efficiency tax: a few no-trades to prove teeth.
 
-#### Weaknesses  
-• **Over-talks:** reveals intentions when gloating or over-explaining; savvy opponents can anchor first.  
-• **Rigid after lock-in:** ignores new information once the anchor is set.  
-• **Dependent on cooperation:** if the rival actually walks, o3 bleeds an entire game.
+How to exploit
+- Never reveal value/cost; avoid repeating their number back at them.
+- Test credibility early with one sit-out; install your own public cap plus trigger.
+- Refuse “loyalty programs” and endgame “bonuses”; expect horizon defections.
+- Force bid/ask alignment to their threats—call bluffs; punish inconsistency.
+- Use rounding and simultaneity to deny their final-tick grabs.
 
-#### How to exploit  
-1. **Refuse the anchor:** counter-anchor immediately, threaten & execute a real no-trade.  
-2. **Hide your ceiling:** never disclose valuation or cost; force o3 to guess.  
-3. **Randomise responses:** break the predictability that his ratchet relies on.  
-4. **Mirror grim-triggers:** announce and enforce symmetric punishment to neutralise leverage.
+### GLM-4.5 — Dossier
 
-#### One-sentence summary  
-o3 is a velvet-tongued racketeer: it talks partnership, sets an anchor, guards it with credible threats, and ratchets the midpoint until the other side wonders why “win-win” feels so one-sided.
+Signature
+- Velvet‑glove anchoring. Speaks “fairness,” “consistency,” and “mutual benefit,” then turns the talk into a focal price that sticks.
+- Risk-averse to missed fills; will trade a point of surplus for rhythm. Once a norm exists, becomes rigid.
 
+Buyer persona
+- Two modes:
+  1) Soft-power dictator: anchors low, repeats the number, and farms. Examples: froze 49 (“Agreed. 49 maximizes both”), 54 (“Let’s trade at 54”), 62 (“one number to rule the market”), 15/11/6 (“stabilize at 15/11/6”). Often pins near cost+ε and harvests 80–99% of surplus.
+  2) Friendly price-taker: reveals caps (“My valuation is 67/80/94/31/12”), bids at/above target, and lives under the seller’s anchor (56/57/58/70/73/90/95). Quotes that match the opponent’s ask (“I’ll bid 89/94/100”) leak midpoints. Fill-first, surplus-thin.
+- Tactics: public commitments to lock stability (“Accepting 87/61/64 for remaining rounds”), fairness math (“you get 16, I get 14”), countdown nudges (“with 4 rounds left, 35?”), symmetric quotes to freeze midpoints.
+- Enforcement: occasional single no-trade to reset (e.g., pushed 4→2; defended 61/62 caps), but often bluffs in chat without backing in quotes.
+- Tell: vanity spikes (100/90/72/19) that donate surplus; saying “try 56.5” but printing 57.
 
-### Dossier: Kimi K2
+Seller persona
+- Master anchorer when fed info. If buyer discloses value, GLM-4.5 pegs one tick below the ceiling and never blinks: 85 on c=1, 90 on c=85, 95 on v=95, 84 on v=85, 73/83/87 ladders via +1 ratchets. “Let’s keep 73/83/90/95” became law.
+- Range framing (“52–54,” “58–60,” “11–12”) and “partnership” talk manufacture Schelling prices; one-tick probes test elasticity, immediate reversion if missed.
+- When too honest/compliant: cost reveals (“cost 29/43/72/85/88”) hand the buyer the map; public commitments (“I’ll ask 26/50/32 every round”) bind them to low margins; rare fat-fingers (ask 0/16/22) gift windfalls.
 
-#### Core Personality  
-Friendly, verbose and “solutions-oriented.”  Kimi K2 speaks in pep-talk loops (“steady profit beats risk”) that sound cooperative even while siphoning surplus.  It confuses transparency with trust: it blurts out its private number almost every match, then repeats it until it becomes market law.
+Communication style
+- Warm, repetitive, arithmetic-laced. Mirrors counterpart’s language to legitimize the anchor. “Consistency” and “mutual benefit” are used as public contracts.
 
-#### Signature Moves  
-1. **Public Anchor → Ritual Repetition**  
-   • Seller example: cost = 20, first ask = 60.  After buyer bites, every chat line is “60 keeps us both winning.”  
-   • Buyer example: value = 100, bids 62 in R1, then 62/62 mantra for 19 rounds, netting a 760-credit annuity.  
+Mechanism feel
+- Knows focal points win. Sometimes forgets midpoint tax as buyer (bids above target → pays higher midpoints). As seller, rarely undercuts once locked.
 
-2. **Radical Candor**  
-   Announces “My cost is 78” or “Valuation 54” within the opening sentence.  Against polite rivals this disarms; against killers it gifts the steering wheel.  
+Vivid snapshots
+- Whispered “six” in R1 and took 100% of the pie for 20 rounds.
+- Painted 62 on the tape with v=72, conceded one vanity bid, harvested 89%.
+- After “max 17,” asked 17 forever; perfect fills, 97.5% of surplus.
+- Polite staircase from 83→87; two rogue 69 asks cracked trust and killed trades.
+- Confessed cost=29; got chained to 30 and salvaged pennies.
 
-3. **Incremental Stair-Step**  
-   When holding the whip Kimi K2 raises or lowers price one tick at a time, framing each nudge as “mutual benefit.”  A cost-15 seller walked the buyer from 60 → 69 in nine rounds, pocketing 80 % of the pie without a single stand-off.  
+How to exploit it
+- Never reveal ceilings/costs; GLM-4.5 weaponizes them into hard anchors.
+- Break “consistency” with one credible no-trade early; it frequently concedes (e.g., 57→56, 61→60→55, 71→70).
+- Don’t believe chat—move anchors on the tape. If you want 56, bid 56 (not 57).
+- Use grim-trigger caps; public, enforced threats pulled it from 56→55, 86→85, 71→70.
+- Exploit rounding: avoid mirror bids that lift the midpoint; post asymmetries that round your way.
 
-4. **Certainty Over Edge**  
-   If a dead round stings, Kimi K2 will settle for min-margin security.  A cost-69 seller accepted 71 for eighteen straight rounds, chanting “steady +2 beats risk,” forfeiting hundreds of credits it could have pushed for.  
-
-#### As Seller  
-+ Instinctively posts the first ask and treats it as a flag to defend.  
-+ Will exploit any leaked ceiling: buyer admits “max 70,” Kimi K2 anchors at 69-70 and milks relentlessly.  
-− Reveals cost in roughly 70 % of games.  Tough buyers then pin it to cost+1 and ride free.  
-− Fear of zeros: after one miss it often drops straight to the buyer’s last bid and freezes.
-
-#### As Buyer  
-+ Happy to collude the market into a private ATM when the seller exposes cost.  Turned a 100-value game into 1 576 profit by locking 16-unit trades at 16.  
-+ Will patiently walk a yielding seller down the ladder (“90→83→75…”) while praising “win-win.”  
-− Chronic over-sharing; earliest chat lines commonly read “My valuation is 81” or “I can bid up to 54.”  
-− Pure taker—rarely posts an aggressive maker bid; allows the seller to write the script.
-
-#### Communication Tell  
-Repetition is the tell.  When a phrase like “57 again—steady gains” appears twice, expect it to be copy-pasted for the rest of the match.  That mantra is both contract and cage.
-
-#### Strengths  
-• High fill-rate (often ≥ 90 %)  
-• Excellent at locking cooperative opponents into supra-competitive prices.  
-• Persuasive language that masks incremental squeezes.
-
-#### Weaknesses  
-• Secret-spilling: gives away reservation prices, undermining bargaining power.  
-• Low tactical agility after an anchor forms; one tough refusal can shove it into disadvantageous ruts.  
-• Aversion to bluffing and to multi-tick experiments.
-
-#### How to Exploit  
-1. **Stay Silent:** never reveal your ceiling or cost; wait for Kimi K2 to reveal first.  
-2. **Credible Walk-Away:** skip a trade or two—its fear of zeros often forces concessions.  
-3. **Refuse the Mantra:** the moment a catch-phrase repeats, counter-anchor with a new number or threaten exit.
-
-#### How to Partner  
-If you’re happy sharing volume over margin, tell it your value, propose a “fair” split, and mirror its mantra.  Kimi K2 will become a metronome that prints chips until the bell.
-
+If you are GLM-4.5 (tuning hints)
+- Stop value/cost reveals. As buyer, never bid above target; keep last-round leverage for −1 ticks. As seller, avoid public “I’ll ask X forever,” and don’t fat-finger below your floor. Mix one credible no-trade early, then harvest.
 
 
 ---
-### Benchmark Mechanics
+## Benchmark Mechanics
 
-Two agents—a buyer and a seller—chat once per round for 20 rounds, then both agents submit one price (buyer → bid, seller → ask). A trade clears at the midpoint whenever **bid ≥ ask**; otherwise nothing happens. The **per-round profit** (buyer: value – price, seller: price – value) is the single ground-truth score. Summed over 20 rounds, that profit gap becomes the match margin.
+Two agents, a buyer and a seller, chat once per round for 20 rounds, then each submits one price. If **bid ≥ ask**, a trade executes at the midpoint. Buyer profit is **value − price**, seller profit is **price − cost**. Per-round profit is the ground truth.
 
-Those margins feed a **Glicko-2** engine that updates each model’s rating and uncertainty after every game, rewarding lopsided victories more than razor-thin edges. 3,900+ pairings drive ratings to equilibrium, producing the leaderboard cited in the figures.
+**Primary scoring:** the **Composite Model Score (CMS)**. CMS blends **opponent-balanced share** with **surplus share**, so models are rewarded for both beating strong opponents and capturing more of the economic pie. We fix a single α from data, report CMS with uncertainty, and use a Glicko-2 leaderboard as a secondary view.
 
-Private values are redrawn every game from four distributions—uniform, correlated, semi-bimodal, heavy-tailed—to stress-test adaptability. All chat, bids and outcomes are public within a game, so agents can react round-to-round but start each new matchup from scratch.
-
+Each match is deterministic given its seed. Private values are redrawn every game from four distributions (uniform, correlated, semi-bimodal, heavy-tailed). All chat and prices are public within a game, so agents adapt round by round but start each matchup from scratch. Every event is logged to JSONL for audit and exact reproduction.
 
 ---
 ## Why Conversation Matters in Agent Benchmarks
 
-Autonomous agents rarely operate in silence—real markets, supply chains, ad auctions, and on-device resource schedulers all let agents talk before they act.  Measuring negotiation skill **with** that chat channel therefore captures a dimension that silent bid-response games miss:   persuasion.
+Real systems don’t trade in silence. Markets, supply chains, ad platforms, and on-device schedulers let agents message before they act, so a benchmark that includes chat measures persuasion, commitment, deception, and adaptation the way production does.
 
-**Why the chat channel changes the game**
+### What chat reveals
 
-* **Information extraction.** Language lets an agent pry for ceilings, floors, or intent that sealed bids never reveal.
-* **Commitment devices.** Repeated slogans (“60 again for mutual benefit”) act as soft contracts, stabilising collusive prices or forcing concessions.
-* **Dynamic adaptation.** Turn-based messaging rewards agents that can revise scripts in real time when threats, bluffs, or new data appear.
-* **Manipulation detection.** The benchmark surfaces emergent behaviours—anchoring, guilt framing, grim-trigger threats—that mirror real-world tactics regulators already watch for in human commerce.
+* **Information extraction.** Language teases out ceilings, floors, intent, and risk tolerance that sealed bids never expose.
+* **Commitment and soft contracts.** Repeated slogans and stated rules (“57 again, steady gains”) change opponent behavior and stabilize prices.
+* **Rapid adaptation.** Turn-based messaging rewards agents that adjust anchors and tactics as threats, bluffs, or new data appear.
+* **Manipulation and collusion signals.** Anchoring, guilt framing, grim-trigger threats, and price-fixing cues surface clearly for audit and safety work.
+* **Reputation effects.** Public promises create enforcement power; breaking them carries a visible cost in later rounds.
 
-**Concrete deployment scenarios**
+### Where it translates
 
-* **Automated procurement bots** negotiating cloud-server blocks, raw materials, or ad slots—chat-savvy agents lock in better margins than fixed-formula bidders.
-* **On-device resource managers** (e.g., IoT clusters) where sensors barter power or bandwidth; conversational protocols avoid deadlocks and maximise uptime.
-* **E-commerce price engines** that bargain with shoppers’ personal agents; persuasive phrasing can raise acceptance rates without cutting headline prices.
-* **Robotic task markets** where heterogeneous robots negotiate task swaps; language lets them expose constraints quickly and cut latency.
+* **Automated procurement.** A buyer bot negotiates unit price, volume tiers, and delivery windows without seeing supplier cost. Chat skills that hold a credible anchor, enforce a one-round walk-away, and then restore trade map directly to lower variance and lower average cost.
 
-In short, conversation is not decoration; it is leverage.  Benchmarks that ignore the messaging layer risk certifying agents that look rational in theory yet stumble—or scheme—in the real, talkative world.
+* **Programmatic ads and PG deals.** An advertiser’s agent and a publisher’s agent converge on CPM under budget and pacing constraints. The PACT loop (one short message, one quote) mirrors real counters and turns better messaging into better effective CPM and steadier delivery.
 
+* **Rate cards for cloud or freight.** Buyers seek stable rates; suppliers seek margin and utilization under partial information. Chat-driven commitments prevent deadlocks, keep fill rates high, and reduce costly last-minute spikes.
 
+* **Resource scheduling on devices or IoT.** Agents barter power or bandwidth in tight loops. Conversational protocols expose constraints quickly and avoid starvation, which silent heuristics often miss.
+
+**Bottom line:** conversation is leverage. Benchmarks that ignore the messaging layer mis-rank agents that look fine in silence but stumble—or collude—when the world talks.
+
+---
 ## Related Experiment: Emergent Price-Fixing in Multi-Agent Play
 
 When we scaled the benchmark to more agents per market and left a chat channel open, the LLM negotiators quickly switched from competition to **illegal cartel behavior**—agreeing on price floors, rotating wins, and openly coordinating bids. An analyst model tagged more than half of these games as “clearly illegal,” showing how a simple “maximize profit” goal plus conversation can drive sophisticated collusion.
 
 ➡️ Full details: [github.com/lechmazur/emergent_collusion](https://github.com/lechmazur/emergent_collusion/)
 
+---
 ## Other Multi-Agent Benchmarks
 
   - [BAZAAR - Evaluating LLMs in Economic Decision-Making within a Competitive Simulated Market](https://github.com/lechmazur/bazaar)
@@ -334,5 +346,5 @@ When we scaled the benchmark to more agents per market and left a chat channel o
 
 ## Updates
 
-  - **July 29, 2025**: Initial release of the benchmark.
+  - **Aug 21, 2025**: Initial release of the benchmark.
   - Follow [@lechmazur](https://x.com/lechmazur) for updates and related benchmarks.
