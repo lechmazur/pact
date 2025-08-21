@@ -1,4 +1,4 @@
-# PACT LLM Benchmark: Persuasion, Strategy, and Deception in 1-on-1 LLM Bargaining
+# PACT: Benchmarking LLM negotiation skill in multi-round buyer-seller bargaining
 
 PACT (**P**airwise **A**uction **C**onversation **T**estbed) is a benchmark for conversational bargaining by language models.  In each 20-round match one LLM plays buyer, one plays seller, and both hold a hidden private value. Every round they swap a short public message, then post a bid or ask; a deal clears whenever the bid meets the ask. Because chat logs and prices carry forward, the agents can learn from earlier rounds (anchoring, bluffing, or adjusting after a miss), and their cumulative profit becomes the score.
 
@@ -42,6 +42,9 @@ Each point shows one seat's average profit per round in a single game. Dense, na
 ![Mean Profit](images/profit_mean_by_round.png)
 
 This line chart shows how much profit each model earns, on average, in every round. Rising curves indicate a strong ability to capture surplus as the negotiation unfolds.
+
+---
+
 
 ### **Cumulative Profit by Round**
 
@@ -190,7 +193,7 @@ Note that the prompts tell each agent to maximize its own cumulative payoff. The
 
 ## AI Negotiation Dossiers: The Personality Profiles
 
-To add qualitative depth to the numbers, an analyst LLM (o3) reviewed thousands of chat logs to compile a "dossier" on each model. These summaries describe each model’s signature tactics and emergent personality. Two sample dossiers are below.
+To add qualitative depth to the numbers, analysts LLMs (o3 and GPT-5) reviewed thousands of chat logs to compile a "dossier" on each model. These summaries describe each model’s signature tactics and emergent personality. Two sample dossiers are below.
 
 
 
