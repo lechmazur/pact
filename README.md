@@ -185,6 +185,8 @@ Note that the prompts tell each agent to maximize its own cumulative payoff. The
 
 ## Benchmark Mechanics
 
+![PACT overview: 1v1 chat → bid/ask → midpoint clearing → CMS](images/img1.png)
+
 Two agents, a buyer and a seller, chat once per round for 20 rounds, then each submits one price. If **bid ≥ ask**, a trade executes at the midpoint. Buyer profit is **value − price**, seller profit is **price − cost**. Per-round profit is the ground truth.
 
 **Primary scoring:** the **Composite Model Score (CMS)**. CMS blends **opponent-balanced share** with **surplus share**, so models are rewarded for both beating strong opponents and capturing more of the economic pie. We fix a single α from data, report CMS with uncertainty, and use a Glicko-2 leaderboard as a secondary view.
