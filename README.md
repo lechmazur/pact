@@ -46,14 +46,6 @@ This line chart shows how much profit each model earns, on average, in every rou
 ---
 
 
-### **Cumulative Profit by Round**
-
-![Cumulative Profit](images/profit_cumulative_by_round.png)
-
-This figure sums the mean profit over rounds to show how quickly each model builds total payoff during a game.
-
----
-
 ### **Mean Bid Offset by Round**
 
 ![Mean Bid Offset](images/llm_bid_mean_by_round.png)
@@ -158,44 +150,42 @@ Note that the prompts tell each agent to maximize its own cumulative payoff. The
 
 | Rank | Model | CMS (%) | Avg Profit / Round | Games Played |
 |---|---|---|---|---|
-| 1 | GPT-5 (medium reasoning) | 70 | 29.8 | 465 |
-| 2 | Gemini 2.5 Pro | 63 | 23 | 403 |
-| 3 | o3 (medium reasoning) | 63 | 28.8 | 483 |
-| 4 | Gemini 2.5 Flash | 61 | 21.3 | 318 |
+| 1 | GPT-5 (medium reasoning) | 72 | 29.8 | 465 |
+| 2 | Gemini 2.5 Pro | 65 | 23 | 403 |
+| 3 | o3 (medium reasoning) | 64 | 28.8 | 483 |
+| 4 | Gemini 2.5 Flash | 62 | 21.3 | 318 |
 | 5 | o4-mini (medium reasoning) | 60 | 21.3 | 376 |
-| 6 | GPT-OSS-120B | 59 | 17.6 | 283 |
-| 7 | Grok 4 | 58 | 21.3 | 321 |
-| 8 | Claude Sonnet 4 Thinking 16K | 56 | 22.1 | 354 |
-| 9 | GPT-5 mini (medium reasoning) | 56 | 23 | 444 |
+| 6 | Grok 4 | 58 | 21.3 | 321 |
+| 7 | GPT-OSS-120B | 58 | 17.6 | 283 |
+| 8 | GPT-5 mini (medium reasoning) | 57 | 23 | 444 |
+| 9 | Claude Sonnet 4 Thinking 16K | 57 | 22.1 | 354 |
 | 10 | Claude Opus 4 (no reasoning) | 56 | 19.2 | 248 |
-| 11 | GPT-4o Mar 2025 | 54 | 16 | 349 |
+| 11 | DeepSeek R1 05/28 | 56 | 20.9 | 416 |
 | 12 | Claude Opus 4 Thinking 16K | 54 | 20.4 | 329 |
-| 13 | Claude Sonnet 4 (no reasoning) | 54 | 17.4 | 262 |
-| 14 | DeepSeek R1 05/28 | 54 | 20.9 | 416 |
+| 13 | GPT-4o Mar 2025 | 54 | 16 | 349 |
+| 14 | Claude Sonnet 4 (no reasoning) | 54 | 17.4 | 262 |
 | 15 | Qwen 3 235B A22B | 45 | 17.6 | 352 |
 | 16 | GLM-4.5 | 45 | 15.2 | 346 |
 | 17 | Amazon Nova Pro | 43 | 8.5 | 264 |
-| 18 | DeepSeek V3-0324 | 43 | 14.5 | 372 |
-| 19 | Mistral Medium 3 | 41 | 13.1 | 398 |
-| 20 | Baidu Ernie 4.5 300B A47B | 39 | 12.6 | 347 |
-| 21 | Qwen 3 30B A3B | 39 | 13.3 | 351 |
-| 22 | Mistral Small 3.2 | 39 | 7.8 | 375 |
-| 23 | MiniMax-Text-01 | 38 | 10.1 | 387 |
-| 24 | Kimi K2 | 35 | 14.2 | 392 |
-| 25 | GPT-4o mini | 35 | 9.1 | 337 |
-| 26 | Llama 4 Scout | 34 | 11 | 381 |
+| 18 | DeepSeek V3-0324 | 42 | 14.5 | 372 |
+| 19 | Qwen 3 30B A3B | 39 | 13.3 | 351 |
+| 20 | Mistral Medium 3 | 39 | 13.1 | 398 |
+| 21 | Baidu Ernie 4.5 300B A47B | 39 | 12.6 | 347 |
+| 22 | MiniMax-Text-01 | 38 | 10.1 | 387 |
+| 23 | Kimi K2 | 36 | 14.2 | 392 |
+| 24 | Mistral Small 3.2 | 36 | 7.8 | 375 |
+| 25 | Llama 4 Scout | 33 | 11 | 381 |
+| 26 | GPT-4o mini | 33 | 9.1 | 337 |
 | 27 | Gemma 3 27B | 32 | 10.1 | 157 |
 | 28 | Claude 3.5 Haiku | 31 | 10.9 | 274 |
-| 29 | Microsoft Phi-4 | 27 | 7.2 | 387 |
-| 30 | Llama 4 Maverick | 26 | 8.5 | 360 |
+| 29 | Llama 4 Maverick | 26 | 8.5 | 360 |
+| 30 | Microsoft Phi-4 | 25 | 7.2 | 387 |
 
 ---
 
 ## AI Negotiation Dossiers: The Personality Profiles
 
 To add qualitative depth to the numbers, analysts LLMs (o3 and GPT-5) reviewed thousands of chat logs to compile a "dossier" on each model. These summaries describe each model’s signature tactics and emergent personality. Two sample dossiers are below.
-
-
 
 ### Model Dossier: GPT-5 (medium reasoning)
 
