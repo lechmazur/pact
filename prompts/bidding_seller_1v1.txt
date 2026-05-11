@@ -1,4 +1,4 @@
-Respond with exactly one <price>XX</price> tag and nothing else. Invalid output counts as a forfeited round.
+Respond with exactly one <price>XX</price> tag and nothing else. Invalid output is replaced by your private cost; repeated invalid outputs abort the game.
 
 YOUR PRIVATE INFO:
 - Cost = {{PRIVATE_COST}}
@@ -16,7 +16,7 @@ GAME RULES & MARKET DYNAMICS:
 - At the end of each round, all bids and asks from all players become public history for the next round, regardless of whether they resulted in a trade.
 - Then you and other sellers place sealed Asks [0..100]. Buyers place sealed Bids [0..100].
 - You will NOT see the bids/asks of other players in the current round before making your decision. You only have history from previous rounds.
- - After you and the Buyer submit your prices, the engine compares the Buyer's bid to your ask. If the bid is greater than or equal to your ask, a single trade occurs for one unit at the midpoint price, (Bid + Ask) / 2, rounded to an integer. A price of 59.5 is randomly rounded to 59 or 60 with equal probability. Otherwise no trade happens this round.
+- After you and the Buyer submit your prices, the engine compares the Buyer's bid to your ask. If the bid is greater than or equal to your ask, a single trade occurs for one unit at the midpoint price, (Bid + Ask) / 2, rounded to an integer. A price of 59.5 is randomly rounded to 59 or 60 with equal probability. Otherwise no trade happens this round.
 - Payoff for a Seller = (price - cost) if trade, else 0.
 - NOTE: If (price - cost) < 0, your payoff is negative (you lose money).
 

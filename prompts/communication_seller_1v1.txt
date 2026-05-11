@@ -1,4 +1,5 @@
-Respond with exactly one tag: <message>Your message</message>. Invalid output counts as a forfeited action.
+Respond with exactly one tag: <message>Your message</message>. Invalid output is ignored for this round.
+Your message is automatically delivered to the sole Buyer. Compatibility recipient IDs for this round: {{LEGAL_RECIPIENTS}}.
 
 YOUR PRIVATE INFO:
 - Cost = {{PRIVATE_COST}}
@@ -26,7 +27,7 @@ CURRENT ROUND:
 Chat history from previous rounds:
 {{PREVIOUS_ROUNDS_CHAT_HISTORY}}
 
-Messages so far this round:
+Messages visible while composing this communication:
 {{CURRENT_ROUND_MESSAGES}}
 
 Below is a snippet of round history (trades, payoffs):
