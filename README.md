@@ -27,6 +27,26 @@ The heat-map compares every latest-scope model against every other, cell-by-cell
 
 
 ---
+## 🧪 Methodology
+
+* **Match:** 1 buyer vs 1 seller.
+* **Rounds:** 20 per game; each round = one short message opportunity per agent, then one quote each.
+* **Clearing rule:** trade executes at the midpoint when **bid ≥ ask**; otherwise no trade.
+* **Chat protocol:** sequential turns; max 100 words per message; current-round chat is visible in the bidding prompt.
+* **Information model:** agents never see the live book; they act on prior rounds only.
+* **Private values:** redrawn each game from a weighted mix of uniform, correlated, semi-bimodal, and heavy-tailed distributions.
+* **Reproducibility:** deterministic seeding and full JSONL logs for audit and exact reruns.
+* **Main leaderboard:** **Glicko-2 margin rating** over the connected 1v1 match graph, with uncertainty.
+* **Glicko-2 details:** ratings start at μ=1500 and use a capped, log-based margin multiplier so blowout wins count more than narrow ones: log(profit difference) + 1, capped at 4×. The grey ribbon is a Gaussian density centered at the rating mean and clipped to ±3 rating deviations.
+* **Economic score:** **Composite Model Score (CMS)** blending opponent-balanced share and model-exposure-normalized surplus share with a frozen benchmark-wide `α = 0.10`; we report CMS with uncertainty.
+* **CMS uncertainty:** CMS intervals come from bootstrap resampling; the ribbon is rendered from the score uncertainty and the black tick marks the mean.
+* **Secondary views:** average profit per round, trade frequency, and per-round trajectories.
+* **Scale:** 9,089 collected head-to-head games in the current May 10, 2026 aggregate, including the newest top-up matchups. Public `*_latest.png` charts use the latest model-family view of that aggregate; the H2H matrix is expected to include all 1,234 latest-vs-latest games from that scope.
+
+
+---
+
+## 📊 Supporting Charts
 
 ### 📈 Per-Round Profit Distribution
 
@@ -148,24 +168,6 @@ This chart exposes role asymmetry. Each point compares a model’s average payof
 This companion chart ranks agents by their Composite Model Score (CMS), a weighted blend of opponent-balanced share and model-exposure-normalized surplus share. Values are expressed as percentages. Grey ribbon = uncertainty; darker = more likely; black tick = mean.
 
 α controls the blend between opponent-balanced share (OBS) and surplus share in the Composite Model Score. For the published PACT benchmark we freeze a single benchmark-wide value, `α = 0.10`, after sensitivity analysis on the CSA-backed corpus. That fixed α is reused for both the full and top-model leaderboards so incremental reruns stay comparable while OBS still contributes meaningfully.
-
----
-## 🧪 Methodology
-
-* **Match:** 1 buyer vs 1 seller.
-* **Rounds:** 20 per game; each round = one short message opportunity per agent, then one quote each.
-* **Clearing rule:** trade executes at the midpoint when **bid ≥ ask**; otherwise no trade.
-* **Chat protocol:** sequential turns; max 100 words per message; current-round chat is visible in the bidding prompt.
-* **Information model:** agents never see the live book; they act on prior rounds only.
-* **Private values:** redrawn each game from a weighted mix of uniform, correlated, semi-bimodal, and heavy-tailed distributions.
-* **Reproducibility:** deterministic seeding and full JSONL logs for audit and exact reruns.
-* **Main leaderboard:** **Glicko-2 margin rating** over the connected 1v1 match graph, with uncertainty.
-* **Glicko-2 details:** ratings start at μ=1500 and use a capped, log-based margin multiplier so blowout wins count more than narrow ones: log(profit difference) + 1, capped at 4×. The grey ribbon is a Gaussian density centered at the rating mean and clipped to ±3 rating deviations.
-* **Economic score:** **Composite Model Score (CMS)** blending opponent-balanced share and model-exposure-normalized surplus share with a frozen benchmark-wide `α = 0.10`; we report CMS with uncertainty.
-* **CMS uncertainty:** CMS intervals come from bootstrap resampling; the ribbon is rendered from the score uncertainty and the black tick marks the mean.
-* **Secondary views:** average profit per round, trade frequency, and per-round trajectories.
-* **Scale:** 9,089 collected head-to-head games in the current May 10, 2026 aggregate, including the newest top-up matchups. Public `*_latest.png` charts use the latest model-family view of that aggregate; the H2H matrix is expected to include all 1,234 latest-vs-latest games from that scope.
-
 
 ---
 ## 🏅 Composite Leaderboard (Latest Model-Family View)
