@@ -539,7 +539,7 @@ When we scaled the benchmark to more agents per market and left a chat channel o
 -----
 
 ## 🗓️ Updates
-
+  - **June 1, 2026**: 4 new models added.
   - **May 11, 2026**: Updated models, many new games added.
   - **Aug 21, 2025**: Initial release of the benchmark.
   - Follow [@lechmazur](https://x.com/lechmazur) for updates and related benchmarks.
