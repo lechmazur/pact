@@ -23,7 +23,7 @@ Use this chart as the headline ranking for overall negotiating strength; the CMS
 
 ![Head-to-Head Surplus-Share Matrix](images/h2h_overall_matrix_glicko2_latest.png)
 
-The heat-map compares every latest-scope model against every other, cell-by-cell. Colours indicate the mean surplus-share delta in their direct match-ups. Positive values favour the row model, while negative values favour the column model, making asymmetric rivalries and broad dominance patterns immediately visible. In the current public snapshot this matrix includes all 1,234 latest-vs-latest games from the May 10, 2026 top-up-inclusive aggregate.
+The heat-map compares every latest-scope model against every other, cell-by-cell. Colours indicate the mean surplus-share delta in their direct match-ups. Positive values favour the row model, while negative values favour the column model, making asymmetric rivalries and broad dominance patterns immediately visible. In the current public snapshot this matrix includes all 1,873 games from the June 1, 2026 cumulative latest-cohort aggregate.
 
 
 ---
@@ -41,7 +41,7 @@ The heat-map compares every latest-scope model against every other, cell-by-cell
 * **Economic score:** **Composite Model Score (CMS)** blending opponent-balanced share and model-exposure-normalized surplus share with a frozen benchmark-wide `α = 0.10`; we report CMS with uncertainty.
 * **CMS uncertainty:** CMS intervals come from bootstrap resampling; the ribbon is rendered from the score uncertainty and the black tick marks the mean.
 * **Secondary views:** average profit per round, trade frequency, and per-round trajectories.
-* **Scale:** 9,089 collected head-to-head games in the current May 10, 2026 aggregate, including the newest top-up matchups. Public `*_latest.png` charts use the latest model-family view of that aggregate; the H2H matrix is expected to include all 1,234 latest-vs-latest games from that scope.
+* **Scale:** 9,728 scored head-to-head games in the current June 1, 2026 cumulative aggregate, including the newest top-up matchups. Public `*_latest.png` charts use the cohort-preserving latest model-family view of that aggregate; the H2H matrix includes all 1,873 games from that scope.
 
 
 ---
@@ -172,35 +172,39 @@ This companion chart ranks agents by their Composite Model Score (CMS), a weight
 ---
 ## 🏅 Composite Leaderboard (Latest Model-Family View)
 
-The public README view includes latest model families only. The table below shows 25 models in the same Glicko-2 order as the headline chart, with CMS columns for economic context.
+The public README view includes the latest model-family cohort plus selected predecessor rows kept for version-to-version comparison. The table below shows 29 models in the same Glicko-2 order as the headline chart, with CMS columns for economic context.
 
 | Rank | Model | CMS Points | CMS 95% CI | CMS Std | Bootstrap N | Average Profit / Round | Games Played |
 |---|---|---|---|---|---|---|---|
-| 1 | GPT-5.5 (high) | 59 | 55.0-63.0 | 2.0 | 1000 | 19.5 | 146 |
-| 2 | Claude Opus 4.7 (high) | 54 | 51.2-58.0 | 1.8 | 1000 | 19.3 | 180 |
-| 3 | DeepSeek V4 Pro | 53 | 49.7-56.6 | 1.8 | 1000 | 18 | 167 |
-| 4 | Kimi K2.6 | 47 | 43.4-51.1 | 2.0 | 1000 | 16.8 | 124 |
-| 5 | Gemma 4 31B Reasoning | 50 | 46.2-54.5 | 2.1 | 1000 | 17.9 | 136 |
-| 6 | Gemini 3.1 Pro Preview | 55 | 51.2-58.4 | 1.8 | 1000 | 19.9 | 193 |
-| 7 | Qwen 3.6 Max Preview | 52 | 48.8-55.8 | 1.8 | 1000 | 20.6 | 133 |
-| 8 | GLM-5.1 | 47 | 42.4-50.5 | 2.1 | 1000 | 15.2 | 127 |
-| 9 | Claude Sonnet 4.6 (high) | 51 | 46.7-55.6 | 2.3 | 1000 | 18.8 | 120 |
-| 10 | MiniMax-M2.7 | 47 | 43.0-51.7 | 2.2 | 1000 | 15.9 | 116 |
-| 11 | Arcee Trinity Large Thinking | 44 | 39.4-48.4 | 2.3 | 1000 | 15.7 | 83 |
-| 12 | Mistral Medium 3.5 (high) | 50 | 46.2-54.0 | 2.0 | 1000 | 17.5 | 163 |
-| 13 | Claude 4.5 Haiku | 48 | 42.9-52.5 | 2.4 | 1000 | 15.5 | 146 |
-| 14 | Tencent Hy3 Preview | 50 | 46.0-53.3 | 1.9 | 1000 | 17.1 | 154 |
-| 15 | GPT-OSS-120B | 49 | 45.2-52.0 | 1.7 | 1000 | 16.2 | 397 |
-| 16 | Gemini 3.1 Flash-Lite Preview | 47 | 42.6-50.8 | 2.0 | 1000 | 16.7 | 157 |
-| 17 | Xiaomi MiMo V2.5 Pro | 47 | 41.8-52.7 | 2.8 | 1000 | 16.4 | 84 |
-| 18 | Qwen 3.6 Plus | 44 | 39.3-47.9 | 2.2 | 1000 | 14.7 | 116 |
-| 19 | ByteDance Seed2.0 Pro | 47 | 41.3-51.7 | 2.6 | 1000 | 17.2 | 109 |
-| 20 | Grok 4.3 | 39 | 35.3-42.7 | 1.9 | 1000 | 14.1 | 148 |
-| 21 | Baidu Ernie 5.0 | 35 | 30.1-39.6 | 2.4 | 1000 | 11.5 | 132 |
-| 22 | DeepSeek V4 Flash | 39 | 33.2-44.4 | 2.8 | 1000 | 12.8 | 82 |
-| 23 | Mistral Large 3 | 30 | 23.9-35.4 | 3.0 | 1000 | 7.4 | 138 |
-| 24 | Amazon Nova Pro | 32 | 28.5-36.1 | 2.0 | 1000 | 8.6 | 344 |
-| 25 | Llama 4 Maverick | 26 | 23.0-28.8 | 1.5 | 1000 | 8.1 | 390 |
+| 1 | GPT-5.5 (high) | 62 | 59.0-65.6 | 1.8 | 1000 | 20.5 | 196 |
+| 2 | Claude Opus 4.7 (high) | 56 | 52.7-59.1 | 1.6 | 1000 | 20.2 | 230 |
+| 3 | DeepSeek V4 Pro | 55 | 51.7-57.7 | 1.6 | 1000 | 18.6 | 207 |
+| 4 | Kimi K2.6 | 50 | 47.2-53.3 | 1.5 | 1000 | 17.7 | 169 |
+| 5 | Claude Opus 4.8 (high) | 57 | 53.4-60.4 | 1.8 | 1000 | 19.4 | 175 |
+| 6 | Gemma 4 31B Reasoning | 50 | 46.4-54.1 | 1.9 | 1000 | 17.6 | 161 |
+| 7 | Gemini 3.1 Pro Preview | 55 | 51.5-58.1 | 1.7 | 1000 | 19.8 | 213 |
+| 8 | GLM-5.1 | 50 | 45.8-53.9 | 2.0 | 1000 | 16.3 | 157 |
+| 9 | Qwen 3.6 Max Preview | 52 | 48.6-55.9 | 1.9 | 1000 | 20.6 | 133 |
+| 10 | Claude Sonnet 4.6 (high) | 51 | 46.6-54.8 | 2.2 | 1000 | 18.8 | 135 |
+| 11 | MiniMax-M2.7 | 48 | 43.8-51.9 | 2.1 | 1000 | 16.4 | 136 |
+| 12 | Mistral Medium 3.5 (high) | 52 | 47.9-55.5 | 2.0 | 1000 | 17.8 | 188 |
+| 13 | Arcee Trinity Large Thinking | 46 | 41.0-50.5 | 2.5 | 1000 | 16.4 | 103 |
+| 14 | Tencent Hy3 Preview | 50 | 46.0-53.7 | 2.0 | 1000 | 16.7 | 179 |
+| 15 | GPT-OSS-120B | 49 | 45.4-51.8 | 1.6 | 1000 | 16.2 | 412 |
+| 16 | Claude 4.5 Haiku | 48 | 43.2-52.0 | 2.2 | 1000 | 15.4 | 170 |
+| 17 | Gemini 3.1 Flash-Lite Preview | 48 | 44.2-51.6 | 1.9 | 1000 | 16.9 | 177 |
+| 18 | Qwen 3.7 Max | 42 | 37.8-45.9 | 2.1 | 1000 | 13.9 | 189 |
+| 19 | Xiaomi MiMo V2.5 Pro | 46 | 40.3-51.4 | 2.8 | 1000 | 16.3 | 99 |
+| 20 | ByteDance Seed2.0 Pro | 46 | 41.3-50.6 | 2.4 | 1000 | 17 | 129 |
+| 21 | Grok 4.3 | 40 | 36.4-43.7 | 1.8 | 1000 | 14.2 | 173 |
+| 22 | Qwen 3.6 Plus | 44 | 39.1-48.0 | 2.2 | 1000 | 14.9 | 131 |
+| 23 | Step 3.7 Flash (high) | 37 | 33.4-41.4 | 2.0 | 1000 | 12.5 | 170 |
+| 24 | Baidu Ernie 5.0 | 35 | 30.1-39.9 | 2.5 | 1000 | 11.5 | 132 |
+| 25 | Baidu Ernie 5.1 | 32 | 28.6-35.8 | 1.8 | 1000 | 10.5 | 175 |
+| 26 | DeepSeek V4 Flash | 38 | 33.2-42.7 | 2.4 | 1000 | 12.3 | 102 |
+| 27 | Mistral Large 3 | 29 | 23.7-33.8 | 2.6 | 1000 | 7.2 | 168 |
+| 28 | Amazon Nova Pro | 32 | 28.8-36.4 | 2.0 | 1000 | 8.6 | 344 |
+| 29 | Llama 4 Maverick | 26 | 23.2-29.0 | 1.5 | 1000 | 8.1 | 410 |
 
 ---
 
