@@ -8,22 +8,22 @@ Tracking those message-price threads lets us study haggling skill in language mo
 
 ## 📊 Visualizing the Outcome
 
-### 🥇 PACT Glicko-2 Leaderboard
+### 🥇 PACT Bilateral Rating Leaderboard
 
-![PACT Glicko-2 Leaderboard](images/pact_glicko2_leaderboard_llm_latest.png)
+![PACT Bilateral Rating Leaderboard](images/pact_bradley_terry_leaderboard_llm_latest.png)
 
-This is the main public leaderboard. It translates thousands of 1-on-1 games into a margin-aware Glicko-2 rating, so models are compared through who outperforms whom across the connected head-to-head schedule. Grey ribbon = uncertainty; darker = more likely; black tick = mean. The label adds context with the number of games and average profit per game.
+This is the main public leaderboard. The PACT Bilateral Rating compares models by how well they negotiate against the opponents they faced, using normalized per-game surplus rather than raw profit alone. The bar and black tick mark the point estimate; the grey ribbon summarizes rating uncertainty. The label adds context with the number of games and average profit per game.
 
-Use this chart as the headline ranking for overall negotiating strength; the CMS chart below gives the complementary economic score.
+Use this chart as the headline ranking for bilateral negotiating strength; the CMS chart below gives the complementary economic score.
 
 
 ---
 
 ### 🧩 Head-to-Head Surplus-Share Matrix
 
-![Head-to-Head Surplus-Share Matrix](images/h2h_overall_matrix_glicko2_latest.png)
+![Head-to-Head Surplus-Share Matrix](images/h2h_overall_matrix_bradley_terry_latest.png)
 
-The heat-map compares every latest-scope model against every other, cell-by-cell. Colours indicate the mean surplus-share delta in their direct match-ups. Positive values favour the row model, while negative values favour the column model, making asymmetric rivalries and broad dominance patterns immediately visible. In the current public snapshot this matrix includes all 2,028 games from the June 10, 2026 cumulative latest-cohort aggregate.
+The heat-map compares the displayed models head to head, cell by cell. Colours indicate the mean surplus-share delta in their direct matchups. Positive values favour the row model, while negative values favour the column model, making asymmetric rivalries and broad dominance patterns immediately visible. The current public snapshot includes 1,542 games among the displayed models.
 
 
 ---
@@ -35,13 +35,15 @@ The heat-map compares every latest-scope model against every other, cell-by-cell
 * **Chat protocol:** sequential turns; max 100 words per message; current-round chat is visible in the bidding prompt.
 * **Information model:** agents never see the live book; they act on prior rounds only.
 * **Private values:** redrawn each game from a weighted mix of uniform, correlated, semi-bimodal, and heavy-tailed distributions.
-* **Reproducibility:** deterministic seeding and full JSONL logs for audit and exact reruns.
-* **Main leaderboard:** **Glicko-2 margin rating** over the connected 1v1 match graph, with uncertainty.
-* **Glicko-2 details:** ratings start at μ=1500 and use a capped, log-based margin multiplier so blowout wins count more than narrow ones: log(profit difference) + 1, capped at 4×. The grey ribbon is a Gaussian density centered at the rating mean and clipped to ±3 rating deviations.
-* **Economic score:** **Composite Model Score (CMS)** blending opponent-balanced share and model-exposure-normalized surplus share with a frozen benchmark-wide `α = 0.10`; we report CMS with uncertainty.
-* **CMS uncertainty:** CMS intervals come from bootstrap resampling; the ribbon is rendered from the score uncertainty and the black tick marks the mean.
+* **Reproducibility:** deterministic seeding and full game logs for exact reruns.
+* **Primary leaderboard:** **PACT Bilateral Rating**, an opponent-adjusted head-to-head rating built from normalized per-game surplus results.
+* **Rating input:** each game is scored relative to simple truthful buyer/seller baselines, so the rating rewards contextual surplus capture rather than raw profit alone.
+* **Rating uncertainty:** grey ribbons summarize uncertainty around the rating estimate.
+* **Economic score:** **Composite Model Score (CMS)** combines opponent-balanced performance with captured surplus. It uses one fixed benchmark-wide blend, `α = 0.10`, so updates remain comparable.
+* **CMS uncertainty:** the grey band shows uncertainty around the CMS estimate and the black tick marks the mean.
+* **Robustness view:** Glicko-2 MOV is retained as a secondary check on sign and rank behavior.
 * **Secondary views:** average profit per round, trade frequency, and per-round trajectories.
-* **Scale:** 9,883 scored head-to-head games in the current June 10, 2026 cumulative aggregate, including the newest Claude Fable 5 top-up matchups. Public `*_latest.png` charts use the cohort-preserving latest model-family view of that aggregate; the H2H matrix includes all 2,028 games from that scope.
+* **Scale:** 9,995 scored head-to-head games in the current June 21, 2026 aggregate, including the newest GLM-5.2 matchups. The public charts focus on current model families, and the H2H matrix includes all 1,542 games among the displayed models.
 
 
 ---
@@ -163,49 +165,45 @@ This chart exposes role asymmetry. Each point compares a model’s average payof
 
 ### 🏆 Composite Model Scoreboard
 
-![Composite Model Scoreboard](images/composite_scoreboard_glicko2_latest.png)
+![Composite Model Scoreboard](images/composite_scoreboard_bradley_terry_latest.png)
 
-This companion chart ranks agents by their Composite Model Score (CMS), a weighted blend of opponent-balanced share and model-exposure-normalized surplus share. Values are expressed as percentages. Grey ribbon = uncertainty; darker = more likely; black tick = mean.
+This companion chart ranks agents by their Composite Model Score (CMS), which combines how well a model performs against its opponents with how much economic surplus it captures. Values are expressed as percentages. The grey band shows uncertainty and the black tick marks the mean.
 
-α controls the blend between opponent-balanced share (OBS) and surplus share in the Composite Model Score. For the published PACT benchmark we freeze a single benchmark-wide value, `α = 0.10`, after sensitivity analysis on the CSA-backed corpus. That fixed α is reused for both the full and top-model leaderboards so incremental reruns stay comparable while OBS still contributes meaningfully.
+The score uses a fixed blend, `α = 0.10`, for every public update. That keeps CMS comparable over time while still rewarding both strong head-to-head performance and efficient surplus capture.
 
 ---
-## 🏅 Composite Leaderboard (Latest Model-Family View)
+## 🏅 Latest Model-Family Leaderboard Table
 
-The public README view includes the latest model-family cohort plus selected predecessor rows kept for version-to-version comparison. The table below shows 30 models in the same Glicko-2 order as the headline chart, with rounded PACT Glicko-2 ratings and CMS columns for economic context. CMS intervals use 1,000 bootstrap resamples.
+The table below shows 26 models in the same PACT Bilateral Rating order as the headline chart. It includes rating intervals, game counts, opponent counts, buyer/seller splits, CMS, and average profit for economic context.
 
-| Rank | Model | PACT Glicko-2 | CMS Points | CMS 95% CI | CMS Std | Average Profit / Round | Games Played |
-|---|---|---|---|---|---|---|---|
-| 1 | Claude Fable 5 (high) | 2171 | 69 | 65.1-73.3 | 2.1 | 23.6 | 155 |
-| 2 | GPT-5.5 (high) | 1999 | 61 | 58.1-64.6 | 1.7 | 20.1 | 206 |
-| 3 | Claude Opus 4.7 (high) | 1927 | 55 | 51.8-57.9 | 1.5 | 20 | 240 |
-| 4 | DeepSeek V4 Pro | 1827 | 54 | 51.3-57.0 | 1.5 | 18.4 | 217 |
-| 5 | Kimi K2.6 | 1782 | 49 | 45.8-52.0 | 1.6 | 17 | 179 |
-| 6 | Claude Opus 4.8 (high) | 1771 | 56 | 52.6-59.4 | 1.7 | 19.2 | 185 |
-| 7 | Gemma 4 31B Reasoning | 1758 | 50 | 46.1-53.6 | 1.8 | 17.3 | 166 |
-| 8 | Gemini 3.1 Pro Preview | 1751 | 54 | 50.8-57.5 | 1.7 | 19.7 | 218 |
-| 9 | GLM-5.1 | 1714 | 50 | 45.7-53.6 | 2.0 | 16.1 | 162 |
-| 10 | Qwen 3.6 Max Preview | 1692 | 51 | 47.9-55.0 | 1.8 | 20.1 | 138 |
-| 11 | Claude Sonnet 4.6 (high) | 1635 | 50 | 45.8-54.4 | 2.2 | 18.3 | 140 |
-| 12 | MiniMax-M2.7 | 1574 | 47 | 42.8-51.1 | 2.1 | 16 | 141 |
-| 13 | Mistral Medium 3.5 (high) | 1574 | 52 | 47.9-55.3 | 1.9 | 17.8 | 188 |
-| 14 | Arcee Trinity Large Thinking | 1541 | 45 | 39.8-49.6 | 2.5 | 15.8 | 108 |
-| 15 | Tencent Hy3 Preview | 1537 | 49 | 45.5-52.9 | 1.9 | 16.4 | 184 |
-| 16 | GPT-OSS-120B | 1533 | 48 | 45.3-51.6 | 1.6 | 16.2 | 413 |
-| 17 | Claude 4.5 Haiku | 1516 | 48 | 43.0-51.8 | 2.3 | 15.4 | 170 |
-| 18 | Gemini 3.1 Flash-Lite Preview | 1512 | 47 | 43.7-51.2 | 1.9 | 16.6 | 182 |
-| 19 | Qwen 3.7 Max | 1509 | 41 | 37.2-44.9 | 2.0 | 13.8 | 194 |
-| 20 | Xiaomi MiMo V2.5 Pro | 1477 | 45 | 39.6-49.9 | 2.6 | 15.9 | 104 |
-| 21 | ByteDance Seed2.0 Pro | 1461 | 45 | 41.0-49.7 | 2.2 | 16.9 | 134 |
-| 22 | Qwen 3.6 Plus | 1449 | 43 | 38.5-46.7 | 2.0 | 14.7 | 136 |
-| 23 | Grok 4.3 | 1446 | 40 | 36.0-43.3 | 1.9 | 14.1 | 178 |
-| 24 | Step 3.7 Flash (high) | 1442 | 36 | 32.2-40.9 | 2.2 | 12.2 | 175 |
-| 25 | Baidu Ernie 5.0 | 1382 | 34 | 29.8-39.0 | 2.4 | 11.4 | 137 |
-| 26 | Baidu Ernie 5.1 | 1356 | 32 | 28.0-35.4 | 1.8 | 10.4 | 180 |
-| 27 | DeepSeek V4 Flash | 1355 | 37 | 32.3-41.5 | 2.4 | 12.1 | 107 |
-| 28 | Mistral Large 3 | 1281 | 28 | 22.9-33.2 | 2.5 | 7.2 | 173 |
-| 29 | Amazon Nova Pro | 1275 | 32 | 28.5-35.8 | 1.9 | 8.4 | 348 |
-| 30 | Llama 4 Maverick | 1077 | 26 | 23.2-29.0 | 1.5 | 8.1 | 415 |
+| Rank | Model | PACT Bilateral Rating | Rating 95% CI | CMS Points | CMS 95% CI | Average Profit / Round | Games Played | Opponents | Buyer/Seller |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | GPT-5.5 (high) | 1607 | 1595-1619 | 61 | 57.9-64.4 | 19.8 | 216 | 30 | 102/114 |
+| 2 | Claude Fable 5 (high) | 1603 | 1587-1620 | 69 | 65.2-73.1 | 23.6 | 155 | 27 | 65/90 |
+| 3 | DeepSeek V4 Pro | 1570 | 1556-1585 | 54 | 50.6-56.5 | 18.3 | 227 | 31 | 105/122 |
+| 4 | GLM-5.2 (max reasoning) | 1566 | 1551-1580 | 54 | 50.2-57.7 | 18.7 | 112 | 18 | 52/60 |
+| 5 | Claude Opus 4.8 (high) | 1562 | 1550-1575 | 56 | 52.5-59.0 | 18.9 | 194 | 27 | 97/97 |
+| 6 | Kimi K2.6 | 1560 | 1546-1573 | 49 | 45.6-51.8 | 16.7 | 189 | 28 | 76/113 |
+| 7 | Gemini 3.1 Pro Preview | 1557 | 1549-1566 | 54 | 50.4-57.2 | 19.2 | 228 | 59 | 120/108 |
+| 8 | Gemma 4 31B Reasoning | 1557 | 1542-1572 | 50 | 46.2-53.4 | 17.6 | 171 | 33 | 94/77 |
+| 9 | GLM-5.1 | 1554 | 1537-1571 | 49 | 45.2-52.4 | 16 | 172 | 33 | 87/85 |
+| 10 | Claude Sonnet 4.6 (high) | 1546 | 1533-1559 | 50 | 46.2-53.9 | 18 | 145 | 47 | 84/61 |
+| 11 | Mistral Medium 3.5 (high) | 1538 | 1523-1553 | 52 | 48.0-55.6 | 17.8 | 188 | 27 | 102/86 |
+| 12 | Arcee Trinity Large Thinking | 1526 | 1502-1550 | 44 | 39.8-49.5 | 15.8 | 108 | 32 | 52/56 |
+| 13 | Tencent Hy3 Preview | 1520 | 1505-1535 | 49 | 45.6-52.8 | 16.7 | 189 | 27 | 93/96 |
+| 14 | Qwen 3.7 Max | 1511 | 1497-1524 | 41 | 36.7-45.2 | 13.8 | 194 | 26 | 110/84 |
+| 15 | Claude 4.5 Haiku | 1510 | 1485-1535 | 46 | 42.1-50.9 | 15.1 | 175 | 55 | 92/83 |
+| 16 | Gemini 3.1 Flash-Lite Preview | 1509 | 1500-1517 | 47 | 43.3-51.0 | 16.6 | 182 | 58 | 91/91 |
+| 17 | Xiaomi MiMo V2.5 Pro | 1508 | 1490-1525 | 44 | 39.1-49.6 | 15.6 | 109 | 28 | 47/62 |
+| 18 | Grok 4.3 | 1504 | 1487-1522 | 40 | 36.4-43.3 | 14.1 | 182 | 29 | 97/85 |
+| 19 | Step 3.7 Flash (high) | 1500 | 1485-1515 | 37 | 32.6-40.5 | 12.2 | 175 | 24 | 84/91 |
+| 20 | GPT-OSS-120B | 1496 | 1484-1507 | 48 | 45.3-51.7 | 16.1 | 418 | 57 | 183/235 |
+| 21 | ByteDance Seed2.0 Pro | 1491 | 1457-1525 | 45 | 40.7-49.6 | 16.9 | 134 | 53 | 69/65 |
+| 22 | Baidu Ernie 5.1 | 1485 | 1468-1502 | 32 | 28.6-35.8 | 10.3 | 185 | 25 | 101/84 |
+| 23 | DeepSeek V4 Flash | 1483 | 1463-1503 | 37 | 32.3-41.3 | 12.4 | 112 | 28 | 56/56 |
+| 24 | Mistral Large 3 | 1449 | 1431-1467 | 28 | 23.1-32.6 | 7.2 | 174 | 64 | 78/96 |
+| 25 | Amazon Nova Pro | 1426 | 1416-1436 | 32 | 28.3-35.9 | 8.4 | 352 | 60 | 189/163 |
+| 26 | Llama 4 Maverick | 1394 | 1386-1402 | 26 | 23.3-29.3 | 8.1 | 415 | 43 | 213/202 |
 
 ---
 
@@ -215,11 +213,11 @@ The public README view includes the latest model-family cohort plus selected pre
 
 Two agents, a buyer and a seller, chat once per round for 20 rounds, then each submits one price. If **bid ≥ ask**, a trade executes at the midpoint. Buyer profit is **value − price**, seller profit is **price − cost**. Per-round profit is the ground truth.
 
-**Primary leaderboard:** the **Glicko-2 margin rating**. It compares models through the connected head-to-head schedule and rewards consistent wins with economically meaningful margins.
+**Primary leaderboard:** the **PACT Bilateral Rating**. It compares models through head-to-head games and estimates opponent-adjusted negotiating strength from normalized surplus results.
 
-**Composite score:** the **Composite Model Score (CMS)** blends **opponent-balanced share** with **model-exposure-normalized surplus share**, so models are also audited on both opponent balance and captured economic surplus. The benchmark freezes a single `α = 0.10` and reports CMS with uncertainty.
+**Composite score:** the **Composite Model Score (CMS)** combines opponent-balanced performance with captured economic surplus. The benchmark uses a fixed `α = 0.10` and reports CMS with uncertainty.
 
-Each match is deterministic given its seed. Private values are redrawn every game from four distributions (uniform, correlated, semi-bimodal, heavy-tailed). All chat and prices are public within a game, so agents adapt round by round but start each matchup from scratch. Every event is logged to JSONL for audit and exact reproduction.
+Each match is deterministic given its seed. Private values are redrawn every game from four distributions (uniform, correlated, semi-bimodal, heavy-tailed). All chat and prices are public within a game, so agents adapt round by round but start each matchup from scratch. Every event is logged for exact reproduction.
 
 ---
 
@@ -541,7 +539,9 @@ When we scaled the benchmark to more agents per market and left a chat channel o
 
 ## 🗓️ Updates
 
-  - **June 10, 2026**: Claude Fable 5 added and latest-cohort charts refreshed.
+  - **June 22, 2026**: Switched the primary leaderboard to PACT Bilateral Rating after held-out validation; Glicko-2 MOV remains a robustness view.
+  - **June 21, 2026**: GLM-5.2 added.
+  - **June 10, 2026**: Claude Fable 5 added and latest-model charts refreshed.
   - **June 1, 2026**: 4 new models added.
   - **May 11, 2026**: Updated models, many new games added.
   - **Aug 21, 2025**: Initial release of the benchmark.
